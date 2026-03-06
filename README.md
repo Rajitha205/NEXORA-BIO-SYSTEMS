@@ -42,6 +42,5 @@ Simply open `index.html` in any modern web browser to view the project locally.
 
 For the best experience, use a modern browser (Chrome, Firefox, Safari, Edge) with hardware acceleration enabled to ensure a smooth 60fps frame rate for the canvas animations.
 
-## Authors
-Generated for Anti-Gravity Labs.
 © 2026 Nexora Bio Systems. All rights reserved.
+
