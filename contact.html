@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexora Terminal — Secure Contact | Nexora Bio Systems</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .contact-hero {
+            padding: 160px 0 80px;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info {
+            padding-top: 20px;
+        }
+
+        .contact-info-card {
+            padding: 28px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .contact-info-icon {
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            background: rgba(57, 255, 20, 0.08);
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .contact-info-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .contact-info-value {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .contact-info-sub {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Form Terminal */
+        .form-terminal {
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .form-terminal .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .form-terminal .terminal-title {
+            margin-left: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .form-body {
+            padding: 36px;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .form-prompt-line {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--neon-green);
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        .form-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--neon-green);
+            margin-bottom: 8px;
+            display: block;
+            letter-spacing: 0.05em;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            appearance: none;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 0 2px rgba(57, 255, 20, 0.08);
+            background: rgba(57, 255, 20, 0.02);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-select {
+            cursor: none;
+        }
+
+        .form-select option {
+            background: var(--black-2);
+            color: var(--text-primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .scan-btn {
+            width: 100%;
+            padding: 18px;
+            border-radius: var(--radius-sm);
+            background: var(--neon-green);
+            color: var(--black);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: none;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .scan-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .scan-btn:hover::before {
+            left: 100%;
+        }
+
+        .scan-btn:hover {
+            box-shadow: var(--glow-green);
+            transform: translateY(-2px);
+        }
+
+        .scan-btn.scanning {
+            background: rgba(57, 255, 20, 0.2);
+            color: var(--neon-green);
+            border: 1px solid var(--neon-border);
+        }
+
+        .scan-btn.success {
+            background: rgba(57, 255, 20, 0.1);
+            color: var(--neon-green);
+            border: 1px solid var(--neon-border);
+        }
+
+        .success-message {
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .shield-visual {
+            text-align: center;
+            padding: 80px;
+            background: radial-gradient(circle at center, rgba(57, 255, 20, 0.06), transparent);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--glass-border);
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shield-icon {
+            font-size: 80px;
+            display: block;
+            margin-bottom: 24px;
+            filter: drop-shadow(0 0 30px rgba(57, 255, 20, 0.5));
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .shield-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .shield-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .shield-rings {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .shield-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(57, 255, 20, 0.08);
+        }
+
+        .shield-ring:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+            animation: spin 20s linear infinite;
+        }
+
+        .shield-ring:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            top: -250px;
+            left: -250px;
+            animation: spinReverse 30s linear infinite;
+        }
+
+        .shield-ring:nth-child(3) {
+            width: 700px;
+            height: 700px;
+            top: -350px;
+            left: -350px;
+            animation: spin 40s linear infinite;
+        }
+
+        @media (max-width: 900px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .shield-visual {
+                padding: 60px 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <canvas id="particles-canvas"></canvas>
+    <div class="bg-grid"></div>
+    <div class="bg-orbs">
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+    </div>
+    <nav class="nav" id="nav">
+        <div class="nav-logo">
+            <div class="nav-logo-icon">🧬</div><span>Nexora<span> Bio</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="pipeline.html">Pipeline</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="careers.html">Careers</a></li>
+        </ul>
+        <div class="nav-cta"><a href="contact.html" class="btn-nav" style="color:var(--neon-green);">● Connected</a>
+        </div>
+        <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a><a href="research.html">Research</a><a href="technology.html">Technology</a>
+        <a href="pipeline.html">Pipeline</a><a href="publications.html">Publications</a>
+        <a href="about.html">About</a><a href="careers.html">Careers</a>
+        <a href="contact.html" class="btn btn-primary">Enter the Lab</a>
+    </div>
+    <main class="page-wrapper">
+        <section class="contact-hero section">
+            <div class="container">
+                <div class="section-tag reveal"><span class="section-tag-dot"></span>Secure Terminal</div>
+                <h1 class="section-title reveal">Initiate <span>Contact</span></h1>
+                <p class="section-subtitle reveal">Open an encrypted channel to the Nexora Research Terminal.
+                    Partnerships, press, and scientific collaboration requests welcome.</p>
+            </div>
+        </section>
+
+        <section class="section" style="padding-top:0;">
+            <div class="container">
+                <div class="contact-layout">
+                    <!-- Info -->
+                    <div class="contact-info">
+                        <div class="section-tag" style="margin-bottom:32px;"><span
+                                class="section-tag-dot"></span>Connection Nodes</div>
+                        <div class="contact-info-card card-glass reveal">
+                            <div class="contact-info-icon">🌍</div>
+                            <div>
+                                <div class="contact-info-label">Global HQ</div>
+                                <div class="contact-info-value">Nexora Tower, Zurich, Switzerland</div>
+                                <div class="contact-info-sub">EST UTC+1 · Open Mon–Fri 08:00–18:00</div>
+                            </div>
+                        </div>
+                        <div class="contact-info-card card-glass reveal">
+                            <div class="contact-info-icon" style="animation-delay:-2s;">📡</div>
+                            <div>
+                                <div class="contact-info-label">Research Inquiries</div>
+                                <div class="contact-info-value">research@nexorabio.com</div>
+                                <div class="contact-info-sub">For collaboration and scientific partnerships</div>
+                            </div>
+                        </div>
+                        <div class="contact-info-card card-glass reveal">
+                            <div class="contact-info-icon" style="animation-delay:-4s;">📰</div>
+                            <div>
+                                <div class="contact-info-label">Press & Media</div>
+                                <div class="contact-info-value">press@nexorabio.com</div>
+                                <div class="contact-info-sub">Media kit available on request</div>
+                            </div>
+                        </div>
+                        <div class="contact-info-card card-glass reveal" id="partnership">
+                            <div class="contact-info-icon" style="animation-delay:-1s;">🤝</div>
+                            <div>
+                                <div class="contact-info-label">Partnerships</div>
+                                <div class="contact-info-value">partners@nexorabio.com</div>
+                                <div class="contact-info-sub">Pharma licensing and co-development</div>
+                            </div>
+                        </div>
+
+                        <div class="terminal" style="margin-top:32px;">
+                            <div class="terminal-header">
+                                <div class="terminal-dot"></div>
+                                <div class="terminal-dot"></div>
+                                <div class="terminal-dot"></div>
+                                <span class="terminal-title">SECURITY_STATUS</span>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                        class="terminal-text-green">TLS 1.3 ENCRYPTION ACTIVE</span></div>
+                                <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                        class="terminal-text">END-TO-END SECURE CHANNEL</span></div>
+                                <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                        class="terminal-text-green">DATA RESIDENCY: EU GDPR COMPLIANT</span></div>
+                                <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                        class="terminal-text">RESPONSE TIME: &lt; 24hrs</span><span
+                                        class="terminal-cursor"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Terminal -->
+                    <div class="reveal">
+                        <div class="form-terminal card-glass card-glass--neon">
+                            <div class="terminal-header">
+                                <div class="terminal-dot"></div>
+                                <div class="terminal-dot"></div>
+                                <div class="terminal-dot"></div>
+                                <span class="terminal-title">NEXORA_TERMINAL_V4.0 — SECURE CONTACT INTERFACE</span>
+                            </div>
+                            <div class="form-body">
+                                <div style="margin-bottom:24px;">
+                                    <div class="terminal-line"><span class="terminal-prompt">$</span><span
+                                            style="color:var(--text-secondary); font-family:'JetBrains Mono',monospace; font-size:0.8rem;">INITIATING
+                                            SECURE TRANSMISSION PROTOCOL...</span></div>
+                                    <div class="terminal-line" style="margin-top:6px;"><span
+                                            class="terminal-prompt">></span><span
+                                            style="color:var(--neon-green); font-family:'JetBrains Mono',monospace; font-size:0.8rem;">CHANNEL
+                                            ESTABLISHED. ENTER CREDENTIALS BELOW.</span></div>
+                                </div>
+
+                                <form id="contactForm" novalidate>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label class="form-label">// NAME.IDENTIFIER</label>
+                                            <input class="form-input" type="text" placeholder="Dr. Jane Smith" required
+                                                id="fname" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">// EMAIL.ADDRESS</label>
+                                            <input class="form-input" type="email" placeholder="jane@institute.edu"
+                                                required id="femail" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">// ORGANIZATION.NODE</label>
+                                        <input class="form-input" type="text"
+                                            placeholder="MIT Synthetic Biology Lab / Pfizer / Stanford..." id="forg" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">// INQUIRY.TYPE</label>
+                                        <select class="form-select" id="finquiry">
+                                            <option value="">SELECT_INQUIRY_TYPE...</option>
+                                            <option value="research">Scientific Research Collaboration</option>
+                                            <option value="partnership">Pharmaceutical Partnership</option>
+                                            <option value="press">Press & Media</option>
+                                            <option value="investor">Investor Relations</option>
+                                            <option value="career">Career Inquiry</option>
+                                            <option value="general">General Inquiry</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">// MESSAGE.PAYLOAD</label>
+                                        <textarea class="form-textarea"
+                                            placeholder="Describe your inquiry in detail. Our team reviews all messages within 24 hours..."
+                                            required id="fmessage"></textarea>
+                                    </div>
+
+                                    <button type="submit" class="scan-btn" id="submitBtn">
+                                        <span id="btnText">TRANSMIT DATA →</span>
+                                        <span id="btnIcon">🔒</span>
+                                    </button>
+                                </form>
+
+                                <div class="success-message" id="successMsg" style="margin-top:24px;">
+                                    <div class="terminal"
+                                        style="background: rgba(57,255,20,0.04); border-color: rgba(57,255,20,0.3);">
+                                        <div class="terminal-header">
+                                            <div class="terminal-dot" style="background:var(--neon-green);"></div>
+                                            <span class="terminal-title">TRANSMISSION_LOG</span>
+                                        </div>
+                                        <div class="terminal-body">
+                                            <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                                    class="terminal-text-green">DATA PACKET ENCRYPTED (AES-256)</span>
+                                            </div>
+                                            <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                                    class="terminal-text-green">TRANSMISSION SUCCESSFUL ✓</span></div>
+                                            <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                                    class="terminal-text">ROUTING TO NEXORA RESEARCH COUNCIL...</span>
+                                            </div>
+                                            <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                                    class="terminal-text-green">CONFIRMATION SENT TO YOUR EMAIL ADDRESS
+                                                    ✓</span></div>
+                                            <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                                    class="terminal-text">EXPECTED RESPONSE: &lt; 24 HOURS</span><span
+                                                    class="terminal-cursor"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shield Section -->
+                <div class="shield-visual reveal" id="press">
+                    <div class="shield-rings">
+                        <div class="shield-ring"></div>
+                        <div class="shield-ring"></div>
+                        <div class="shield-ring"></div>
+                    </div>
+                    <span class="shield-icon">🛡️</span>
+                    <h3 class="shield-title">End-to-End Data Security</h3>
+                    <p class="shield-desc">All communications are protected with military-grade TLS 1.3 encryption. Your
+                        data never leaves EU servers. We are fully ISO 27001 certified and GDPR compliant. No
+                        third-party tracking. No advertising. Science only.</p>
+                    <div style="display:flex; gap:16px; justify-content:center; margin-top:32px; flex-wrap:wrap;">
+                        <span class="badge badge-green">ISO 27001 Certified</span>
+                        <span class="badge badge-cyan">GDPR Compliant</span>
+                        <span class="badge badge-green">HIPAA Certified</span>
+                        <span class="badge badge-cyan">SOC 2 Type II</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">🧬</div><span>Nexora Bio Systems</span>
+                    </div>
+                    <p class="footer-desc">Engineering the future of human health.</p>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="research.html">Research</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Science</h4>
+                    <ul class="footer-links">
+                        <li><a href="publications.html">Publications</a></li>
+                        <li><a href="pipeline.html">Pipeline</a></li>
+                        <li><a href="technology.html">Technology</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copy">© 2026 Nexora Bio Systems. All rights reserved.</p>
+                <div class="footer-status">
+                    <div class="footer-status-dot"></div>ALL SYSTEMS OPERATIONAL
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="core.js"></script>
+    <script>
+        const form = document.getElementById('contactForm');
+        const btn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const btnIcon = document.getElementById('btnIcon');
+        const successMsg = document.getElementById('successMsg');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            // Validate
+            const name = document.getElementById('fname').value.trim();
+            const email = document.getElementById('femail').value.trim();
+            const msg = document.getElementById('fmessage').value.trim();
+            if (!name || !email || !msg) {
+                document.getElementById('fname').style.borderColor = !name ? 'red' : '';
+                document.getElementById('femail').style.borderColor = !email ? 'red' : '';
+                document.getElementById('fmessage').style.borderColor = !msg ? 'red' : '';
+                return;
+            }
+
+            btn.classList.add('scanning');
+            btnText.textContent = 'SCANNING... ENCRYPTING...';
+            btnIcon.textContent = '⟳';
+
+            let dots = 0;
+            const scanInterval = setInterval(() => {
+                dots = (dots + 1) % 4;
+                btnText.textContent = 'TRANSMITTING' + '.'.repeat(dots);
+            }, 300);
+
+            setTimeout(() => {
+                clearInterval(scanInterval);
+                btn.classList.remove('scanning');
+                btn.classList.add('success');
+                btnText.textContent = 'TRANSMISSION COMPLETE ✓';
+                btnIcon.textContent = '✓';
+                form.style.display = 'none';
+                successMsg.classList.add('show');
+            }, 3000);
+        });
+    </script>
+</body>
+
+</html>

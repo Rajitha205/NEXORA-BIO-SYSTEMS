@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Technology — Molecular Systems | Nexora Bio Systems</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .tech-hero {
+            padding: 160px 0 100px;
+        }
+
+        .biocore-section {
+            background: radial-gradient(ellipse 60% 50% at 40% 50%, rgba(57, 255, 20, 0.04), transparent);
+        }
+
+        .biocore-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .biocore-spec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .spec-item {
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+        }
+
+        .spec-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .spec-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--neon-green);
+        }
+
+        .arch-diagram {
+            position: relative;
+            padding: 60px 40px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--glass-border);
+            background: var(--glass);
+            text-align: center;
+        }
+
+        .arch-layer {
+            padding: 20px 32px;
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: var(--transition);
+        }
+
+        .arch-layer:hover {
+            transform: translateX(8px);
+        }
+
+        .arch-layer--data {
+            border: 1px solid rgba(57, 255, 20, 0.3);
+            background: rgba(57, 255, 20, 0.06);
+        }
+
+        .arch-layer--ai {
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            background: rgba(0, 240, 255, 0.06);
+        }
+
+        .arch-layer--clinical {
+            border: 1px solid rgba(150, 0, 255, 0.3);
+            background: rgba(150, 0, 255, 0.06);
+        }
+
+        .arch-layer-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .arch-layer-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .arch-layer-desc {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+        }
+
+        .arch-arrow {
+            text-align: center;
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            margin: 4px 0;
+            opacity: 0.5;
+        }
+
+        .mol-tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .mol-tech-card {
+            padding: 36px;
+            text-align: center;
+        }
+
+        .mol-canvas-bg {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.1), rgba(0, 240, 255, 0.1));
+            border: 1px solid var(--neon-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .mol-tech-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .mol-tech-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .impact-bar-section {
+            padding: 80px 0;
+        }
+
+        .impact-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 700px;
+        }
+
+        @media (max-width: 900px) {
+            .biocore-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .mol-tech-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .biocore-spec-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .mol-tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <canvas id="particles-canvas"></canvas>
+    <div class="bg-grid"></div>
+    <div class="bg-orbs">
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+    </div>
+    <nav class="nav" id="nav">
+        <div class="nav-logo">
+            <div class="nav-logo-icon">🧬</div><span>Nexora<span> Bio</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="technology.html" class="active">Technology</a></li>
+            <li><a href="pipeline.html">Pipeline</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="careers.html">Careers</a></li>
+        </ul>
+        <div class="nav-cta"><a href="contact.html" class="btn-nav">Enter the Lab</a></div>
+        <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a><a href="research.html">Research</a><a href="technology.html">Technology</a>
+        <a href="pipeline.html">Pipeline</a><a href="publications.html">Publications</a>
+        <a href="about.html">About</a><a href="careers.html">Careers</a>
+        <a href="contact.html" class="btn btn-primary">Enter the Lab</a>
+    </div>
+    <main class="page-wrapper">
+        <section class="tech-hero section">
+            <div class="container">
+                <div class="section-tag reveal"><span class="section-tag-dot"></span>Molecular Systems</div>
+                <h1 class="section-title reveal" style="max-width:800px;">The Technology <span>Engine</span></h1>
+                <p class="section-subtitle reveal">Where physics, chemistry, and machine intelligence converge to create
+                    an entirely new paradigm for drug discovery and molecular medicine.</p>
+            </div>
+        </section>
+
+        <!-- BioCore-X Engine -->
+        <section class="section biocore-section">
+            <div class="container">
+                <div class="biocore-layout">
+                    <div class="reveal">
+                        <div class="section-tag"><span class="section-tag-dot"></span>Core Platform</div>
+                        <h2 class="section-title">BioCore-X <span>Engine</span></h2>
+                        <p class="section-subtitle" style="margin-bottom:32px;">Our flagship AI molecular prediction
+                            engine reduces drug discovery timelines by 40% — transforming 5-year programs into 3-year
+                            milestones.</p>
+                        <div class="biocore-spec-grid">
+                            <div class="spec-item">
+                                <div class="spec-label">Accuracy</div>
+                                <div class="spec-value">98.7%</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-label">Speed Gain</div>
+                                <div class="spec-value spec-value" style="color:var(--cyan);">40× Faster</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-label">Proteins Modeled</div>
+                                <div class="spec-value">2.1M+</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-label">Parameters</div>
+                                <div class="spec-value" style="color:var(--cyan);">540B</div>
+                            </div>
+                        </div>
+                        <a href="research.html" class="btn btn-primary reveal">View Research Applications →</a>
+                    </div>
+                    <div class="reveal">
+                        <div class="section-tag" style="margin-bottom:24px;"><span
+                                class="section-tag-dot"></span>Platform Architecture</div>
+                        <div class="arch-diagram">
+                            <div class="arch-layer arch-layer--data">
+                                <div class="arch-layer-icon">📊</div>
+                                <div>
+                                    <div class="arch-layer-title">Data Collection Layer</div>
+                                    <div class="arch-layer-desc">Genomic databases, clinical EHRs, imaging data,
+                                        proteomics</div>
+                                </div>
+                            </div>
+                            <div class="arch-arrow">↓ ↓ ↓</div>
+                            <div class="arch-layer arch-layer--ai">
+                                <div class="arch-layer-icon">🤖</div>
+                                <div>
+                                    <div class="arch-layer-title">AI Analysis Core</div>
+                                    <div class="arch-layer-desc">BioCore-X engine: protein folding + drug-target binding
+                                        prediction</div>
+                                </div>
+                            </div>
+                            <div class="arch-arrow">↓ ↓ ↓</div>
+                            <div class="arch-layer arch-layer--clinical">
+                                <div class="arch-layer-icon">🏥</div>
+                                <div>
+                                    <div class="arch-layer-title">Clinical Deployment</div>
+                                    <div class="arch-layer-desc">Validated candidates → IND filing → Phase I–III trials
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3D Molecular Tech -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header reveal" style="text-align:center; margin-bottom:56px;">
+                    <div class="section-tag" style="justify-content:center;"><span class="section-tag-dot"></span>3D
+                        Molecular Technology</div>
+                    <h2 class="section-title">Visualizing the <span>Invisible</span></h2>
+                </div>
+                <div class="mol-tech-grid">
+                    <div class="mol-tech-card card-glass card-glass--hover-rotate reveal">
+                        <div class="mol-canvas-bg">⚛️</div>
+                        <div class="mol-tech-title">Quantum Molecular Simulation</div>
+                        <div class="mol-tech-desc">Physics-informed neural networks simulate electron density and
+                            quantum mechanical interactions at sub-atomic resolution, predicting reactivity with
+                            lab-grade precision.</div>
+                    </div>
+                    <div class="mol-tech-card card-glass card-glass--hover-rotate reveal reveal-delay-1">
+                        <div class="mol-canvas-bg" style="animation-delay:-3s;">🔗</div>
+                        <div class="mol-tech-title">Protein-Ligand Binding</div>
+                        <div class="mol-tech-desc">Deep graph neural networks predict binding affinity between drug
+                            molecules and protein targets. Processes 50,000 compound-target pairs per hour.</div>
+                    </div>
+                    <div class="mol-tech-card card-glass card-glass--hover-rotate reveal reveal-delay-2">
+                        <div class="mol-canvas-bg" style="animation-delay:-1.5s;">🧬</div>
+                        <div class="mol-tech-title">De Novo Drug Design</div>
+                        <div class="mol-tech-desc">Generative diffusion models create entirely new molecular structures
+                            optimized for specificity, potency, ADMET properties, and synthetic accessibility
+                            simultaneously.</div>
+                    </div>
+                    <div class="mol-tech-card card-glass card-glass--hover-rotate reveal">
+                        <div class="mol-canvas-bg">🧫</div>
+                        <div class="mol-tech-title">Cell Line Modeling</div>
+                        <div class="mol-tech-desc">Digital twin cell models predict drug response phenotypes across
+                            1,200 cancer cell lines with 94% correlation to experimental data.</div>
+                    </div>
+                    <div class="mol-tech-card card-glass card-glass--hover-rotate reveal reveal-delay-1">
+                        <div class="mol-canvas-bg" style="animation-delay:-2s;">💊</div>
+                        <div class="mol-tech-title">ADMET Prediction</div>
+                        <div class="mol-tech-desc">Multi-task transformer network predicts absorption, distribution,
+                            metabolism, excretion, and toxicity profiles before any wet lab experiment.</div>
+                    </div>
+                    <div class="mol-tech-card card-glass card-glass--hover-rotate reveal reveal-delay-2">
+                        <div class="mol-canvas-bg" style="animation-delay:-0.5s;">📡</div>
+                        <div class="mol-tech-title">Real-time Data Streaming</div>
+                        <div class="mol-tech-desc">Live integration of IoT biosensors across all 24 global labs.
+                            12.4GB/s data ingestion feeding continuous model improvement and trial monitoring.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Automated Synthesis Lab -->
+        <section class="section"
+            style="background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(57, 255, 20, 0.02), transparent);">
+            <div class="container">
+                <div class="section-header reveal" style="text-align:center; margin-bottom:56px;">
+                    <div class="section-tag" style="justify-content:center;"><span
+                            class="section-tag-dot"></span>Physical Infrastructure</div>
+                    <h2 class="section-title">Automated <span>Synthesis</span> Hubs</h2>
+                    <p class="section-subtitle" style="margin:0 auto;">From digital twin to physical compound in 72
+                        hours using advanced robotics.</p>
+                </div>
+                <div class="biocore-layout" style="margin-bottom: 40px;">
+                    <div class="reveal">
+                        <div class="card-glass" style="padding: 40px; border-color: rgba(57, 255, 20, 0.2);">
+                            <h3 style="font-size: 1.5rem; margin-bottom: 20px;">Robotic Chemistry</h3>
+                            <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 24px;">
+                                Our robotic synthesis hubs in Zurich and Singapore translate AI-designed molecules into
+                                physical realities. Fully automated liquid handling, flow chemistry reactors, and
+                                continuous purification systems operate 24/7 without human intervention.
+                            </p>
+                            <ul style="list-style:none; display:flex; flex-direction:column; gap:16px;">
+                                <li style="display:flex; align-items:center; gap:12px;">
+                                    <span style="color:var(--neon-green); font-size:1.2rem;">✓</span>
+                                    <span style="font-size:0.9rem;">10,000+ compounds synthesized monthly</span>
+                                </li>
+                                <li style="display:flex; align-items:center; gap:12px;">
+                                    <span style="color:var(--neon-green); font-size:1.2rem;">✓</span>
+                                    <span style="font-size:0.9rem;">99.8% structural fidelity validation</span>
+                                </li>
+                                <li style="display:flex; align-items:center; gap:12px;">
+                                    <span style="color:var(--neon-green); font-size:1.2rem;">✓</span>
+                                    <span style="font-size:0.9rem;">Automated mass spectrometry pipeline</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="reveal reveal-delay-1">
+                        <div class="card-glass" style="padding: 40px; border-color: rgba(0, 240, 255, 0.2);">
+                            <h3 style="font-size: 1.5rem; margin-bottom: 20px; color: var(--cyan);">High-Throughput
+                                Biology</h3>
+                            <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 24px;">
+                                Synthesized compounds are immediately routed into autonomous biology testing arrays.
+                                Patient-derived organoids and diverse cell lines are exposed simultaneously, generating
+                                deep multi-omic response data.
+                            </p>
+                            <ul style="list-style:none; display:flex; flex-direction:column; gap:16px;">
+                                <li style="display:flex; align-items:center; gap:12px;">
+                                    <span style="color:var(--cyan); font-size:1.2rem;">✓</span>
+                                    <span style="font-size:0.9rem;">2.5 million assays per week</span>
+                                </li>
+                                <li style="display:flex; align-items:center; gap:12px;">
+                                    <span style="color:var(--cyan); font-size:1.2rem;">✓</span>
+                                    <span style="font-size:0.9rem;">Patient-derived 3D organoid models</span>
+                                </li>
+                                <li style="display:flex; align-items:center; gap:12px;">
+                                    <span style="color:var(--cyan); font-size:1.2rem;">✓</span>
+                                    <span style="font-size:0.9rem;">Live-cell imaging & phenotypic tracking</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Metrics -->
+        <section class="section impact-bar-section"
+            style="background: radial-gradient(ellipse 60% 50% at 60% 50%, rgba(0,240,255,0.04), transparent);">
+            <div class="container">
+                <div class="section-header reveal" style="margin-bottom:56px;">
+                    <div class="section-tag"><span class="section-tag-dot"></span>Technical Performance</div>
+                    <h2 class="section-title">Platform <span>Performance</span></h2>
+                </div>
+                <div class="impact-bars reveal">
+                    <div class="progress-bar-wrap">
+                        <div class="progress-bar-label"><span>Protein Structure Prediction Accuracy</span><span
+                                class="text-neon">98.7%</span></div>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" data-width="98.7"></div>
+                        </div>
+                    </div>
+                    <div class="progress-bar-wrap">
+                        <div class="progress-bar-label"><span>Drug-Target Binding Prediction (AUC)</span><span
+                                class="text-neon">96.4%</span></div>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" data-width="96.4"></div>
+                        </div>
+                    </div>
+                    <div class="progress-bar-wrap">
+                        <div class="progress-bar-label"><span>Cell Viability Prediction vs. Wet Lab</span><span
+                                style="color:var(--cyan)">94.1%</span></div>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" style="background:var(--cyan);" data-width="94.1"></div>
+                        </div>
+                    </div>
+                    <div class="progress-bar-wrap">
+                        <div class="progress-bar-label"><span>ADMET Prediction Correlations</span><span
+                                class="text-neon">91.8%</span></div>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" data-width="91.8"></div>
+                        </div>
+                    </div>
+                    <div class="progress-bar-wrap">
+                        <div class="progress-bar-label"><span>Timeline Reduction vs. Traditional</span><span
+                                style="color:var(--cyan)">40%</span></div>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" style="background:var(--cyan);" data-width="40"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">🧬</div><span>Nexora Bio Systems</span>
+                    </div>
+                    <p class="footer-desc">Engineering the future of human health.</p>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="research.html">Research</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Science</h4>
+                    <ul class="footer-links">
+                        <li><a href="publications.html">Publications</a></li>
+                        <li><a href="pipeline.html">Pipeline</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Get in Touch</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copy">© 2026 Nexora Bio Systems. All rights reserved.</p>
+                <div class="footer-status">
+                    <div class="footer-status-dot"></div>ALL SYSTEMS OPERATIONAL
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="core.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pipeline — Clinical Progress | Nexora Bio Systems</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .pipeline-hero {
+            padding: 160px 0 100px;
+        }
+
+        .pipeline-table-wrap {
+            overflow-x: auto;
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+        }
+
+        .pipeline-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        .pipeline-table thead tr {
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(57, 255, 20, 0.03);
+        }
+
+        .pipeline-table th {
+            padding: 16px 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-align: left;
+        }
+
+        .pipeline-table td {
+            padding: 20px;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: var(--transition);
+        }
+
+        .pipeline-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .pipeline-table tr:hover td {
+            background: rgba(57, 255, 20, 0.03);
+        }
+
+        .therapy-name {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        .indication-name {
+            color: var(--text-secondary);
+        }
+
+        .phase-pill {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .phase-1 {
+            background: rgba(57, 255, 20, 0.1);
+            color: var(--neon-green);
+            border: 1px solid rgba(57, 255, 20, 0.25);
+        }
+
+        .phase-2 {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--cyan);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+        }
+
+        .phase-3 {
+            background: rgba(255, 200, 0, 0.1);
+            color: #ffc800;
+            border: 1px solid rgba(255, 200, 0, 0.25);
+        }
+
+        .phase-4 {
+            background: rgba(150, 0, 255, 0.1);
+            color: #9600ff;
+            border: 1px solid rgba(150, 0, 255, 0.25);
+        }
+
+        .status-active {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--neon-green);
+            font-size: 0.8rem;
+        }
+
+        .status-active::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--neon-green);
+            box-shadow: 0 0 8px var(--neon-green);
+            display: block;
+            animation: pulse-neon 2s infinite;
+        }
+
+        .status-review::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ffc800;
+            box-shadow: 0 0 8px #ffc800;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .status-review {
+            color: #ffc800;
+        }
+
+        .status-approved {
+            color: var(--cyan);
+        }
+
+        .status-approved::before {
+            content: '✓ ';
+        }
+
+        .milestone-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .milestone-card {
+            padding: 36px;
+            text-align: center;
+        }
+
+        .milestone-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .milestone-year {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            margin-bottom: 8px;
+        }
+
+        .milestone-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .milestone-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <canvas id="particles-canvas"></canvas>
+    <div class="bg-grid"></div>
+    <div class="bg-orbs">
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+    </div>
+    <nav class="nav" id="nav">
+        <div class="nav-logo">
+            <div class="nav-logo-icon">🧬</div><span>Nexora<span> Bio</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="pipeline.html" class="active">Pipeline</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="careers.html">Careers</a></li>
+        </ul>
+        <div class="nav-cta"><a href="contact.html" class="btn-nav">Enter the Lab</a></div>
+        <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a><a href="research.html">Research</a><a href="technology.html">Technology</a>
+        <a href="pipeline.html">Pipeline</a><a href="publications.html">Publications</a>
+        <a href="about.html">About</a><a href="careers.html">Careers</a>
+        <a href="contact.html" class="btn btn-primary">Enter the Lab</a>
+    </div>
+    <main class="page-wrapper">
+        <section class="pipeline-hero section">
+            <div class="container">
+                <div class="section-tag reveal"><span class="section-tag-dot"></span>Clinical Pipeline</div>
+                <h1 class="section-title reveal">Clinical <span>Progress</span></h1>
+                <p class="section-subtitle reveal">Tracking every candidate from molecular discovery to patient impact —
+                    real-time clinical trial status across all programs.</p>
+            </div>
+        </section>
+
+        <!-- Pipeline Milestones -->
+        <section class="section-sm">
+            <div class="container">
+                <div class="milestone-grid">
+                    <div class="milestone-card card-glass reveal">
+                        <div class="milestone-icon">🧪</div>
+                        <div class="milestone-year">2025</div>
+                        <div class="milestone-label">NX-101 Pivotal Trial Completion Target</div>
+                    </div>
+                    <div class="milestone-card card-glass reveal reveal-delay-1">
+                        <div class="milestone-icon">📋</div>
+                        <div class="milestone-year">2026</div>
+                        <div class="milestone-label">Estimated FDA NDA Submission for NX-101</div>
+                    </div>
+                    <div class="milestone-card card-glass reveal reveal-delay-2">
+                        <div class="milestone-icon">🌍</div>
+                        <div class="milestone-year">2027</div>
+                        <div class="milestone-label">Global Commercial Launch — 6 Territories</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pipeline Table -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header reveal" style="margin-bottom:40px;">
+                    <div class="section-tag"><span class="section-tag-dot"></span>Active Programs</div>
+                    <h2 class="section-title">Clinical Trial <span>Tracker</span></h2>
+                </div>
+                <div class="pipeline-table-wrap card-glass reveal">
+                    <table class="pipeline-table">
+                        <thead>
+                            <tr>
+                                <th>Therapy</th>
+                                <th>Indication</th>
+                                <th>Phase</th>
+                                <th>Mechanism</th>
+                                <th>Region</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="therapy-name">NX-101</div>
+                                </td>
+                                <td class="indication-name">Lung Cancer (KRAS G12C)</td>
+                                <td><span class="phase-pill phase-3">Phase III</span></td>
+                                <td class="indication-name">KRAS Inhibitor</td>
+                                <td class="indication-name">USA / EU</td>
+                                <td><span class="status-active">Active Enrollment</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="therapy-name">NX-204</div>
+                                </td>
+                                <td class="indication-name">Triple-Negative Breast Cancer</td>
+                                <td><span class="phase-pill phase-2">Phase II</span></td>
+                                <td class="indication-name">CAR-T Cell Therapy</td>
+                                <td class="indication-name">USA</td>
+                                <td><span class="status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="therapy-name">NX-315</div>
+                                </td>
+                                <td class="indication-name">Pan-Cancer PROTAC</td>
+                                <td><span class="phase-pill phase-1">Phase I</span></td>
+                                <td class="indication-name">Proteolysis Targeting</td>
+                                <td class="indication-name">USA / UK</td>
+                                <td><span class="status-active">Dose Escalation</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="therapy-name">NX-501</div>
+                                </td>
+                                <td class="indication-name">Parkinson's Disease</td>
+                                <td><span class="phase-pill phase-2">Phase II</span></td>
+                                <td class="indication-name">Alpha-Synuclein Inhibitor</td>
+                                <td class="indication-name">EU / JP</td>
+                                <td><span class="status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="therapy-name">NX-602</div>
+                                </td>
+                                <td class="indication-name">Alzheimer's Disease</td>
+                                <td><span class="phase-pill phase-1">Phase I</span></td>
+                                <td class="indication-name">Tau Aggregation Blocker</td>
+                                <td class="indication-name">USA / EU</td>
+                                <td><span class="status-active">Safety Review</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="therapy-name">NX-700</div>
+                                </td>
+                                <td class="indication-name">Amyotrophic Lateral Sclerosis</td>
+                                <td><span class="phase-pill phase-1">Phase I</span></td>
+                                <td class="indication-name">AAV9 Gene Therapy</td>
+                                <td class="indication-name">USA</td>
+                                <td><span class="status-review">Under Review</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="therapy-name">NX-801</div>
+                                </td>
+                                <td class="indication-name">Sickle Cell Disease</td>
+                                <td><span class="phase-pill phase-2">Phase II</span></td>
+                                <td class="indication-name">CRISPR Base Editing</td>
+                                <td class="indication-name">USA / Africa</td>
+                                <td><span class="status-active">Active Enrollment</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="therapy-name">NX-850</div>
+                                </td>
+                                <td class="indication-name">Huntington's Disease</td>
+                                <td><span class="phase-pill phase-1">Phase I</span></td>
+                                <td class="indication-name">RNAi Gene Silencing</td>
+                                <td class="indication-name">EU</td>
+                                <td><span class="status-review">Monitoring</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="therapy-name">NX-900</div>
+                                </td>
+                                <td class="indication-name">Spinal Muscular Atrophy</td>
+                                <td><span class="phase-pill phase-2">Phase II</span></td>
+                                <td class="indication-name">AAV Gene Therapy</td>
+                                <td class="indication-name">USA / EU / JP</td>
+                                <td><span class="status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="therapy-name">NX-1001</div>
+                                </td>
+                                <td class="indication-name">Universal CAR-T Platform</td>
+                                <td><span class="phase-pill phase-1">Phase I</span></td>
+                                <td class="indication-name">Allogeneic Immune Cell</td>
+                                <td class="indication-name">USA</td>
+                                <td><span class="status-active">IND Cleared</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="lead-programs" style="margin-top: 80px;">
+                    <div class="section-tag reveal"><span class="section-tag-dot"></span>Focus Areas</div>
+                    <h3 class="section-title reveal" style="font-size: 1.8rem; margin-bottom: 32px;">Lead Candidates
+                        <span>Deep Dive</span></h3>
+                    <div class="mol-tech-grid">
+                        <div class="card-glass card-glass--hover reveal"
+                            style="padding: 32px; display:flex; flex-direction:column;">
+                            <div
+                                style="font-family:'Orbitron',sans-serif; font-size:1.2rem; font-weight:700; color:var(--neon-green); margin-bottom:8px;">
+                                NX-101</div>
+                            <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:16px;">KRAS G12C
+                                Inhibitor · Lung Cancer</div>
+                            <p
+                                style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin-bottom: 24px; flex-grow:1;">
+                                Designed to overcome resistance mutations common in first-generation inhibitors. NX-101
+                                binds in an alternate allosteric pocket discovered by BioCore-X, preventing the kinase
+                                from adopting its active confirmation even when secondary mutations arise.</p>
+                            <a href="#" class="btn btn-primary"
+                                style="padding: 8px 16px; font-size: 0.75rem; align-self:flex-start;">View Trial
+                                Data</a>
+                        </div>
+                        <div class="card-glass card-glass--hover reveal reveal-delay-1"
+                            style="padding: 32px; display:flex; flex-direction:column;">
+                            <div
+                                style="font-family:'Orbitron',sans-serif; font-size:1.2rem; font-weight:700; color:var(--cyan); margin-bottom:8px;">
+                                NX-204</div>
+                            <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:16px;">SynNotch CAR-T
+                                · TNBC</div>
+                            <p
+                                style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin-bottom: 24px; flex-grow:1;">
+                                A logic-gated cell therapy for solid tumors. NX-204 requires dual-antigen recognition
+                                (EGFR + MUC1) to activate cytolytic functions, achieving high tumor clearance in
+                                preclinical models while completely sparing healthy epithelial tissues.</p>
+                            <a href="#" class="btn btn-outline"
+                                style="padding: 8px 16px; font-size: 0.75rem; align-self:flex-start;">Phase II
+                                Updates</a>
+                        </div>
+                        <div class="card-glass card-glass--hover reveal reveal-delay-2"
+                            style="padding: 32px; display:flex; flex-direction:column;">
+                            <div
+                                style="font-family:'Orbitron',sans-serif; font-size:1.2rem; font-weight:700; color:#ffc800; margin-bottom:8px;">
+                                NX-315</div>
+                            <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:16px;">Pan-Cancer
+                                PROTAC</div>
+                            <p
+                                style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin-bottom: 24px; flex-grow:1;">
+                                Exploits the cell’s natural ubiquitin-proteasome system to degrade undruggable
+                                transcription factors like c-Myc. NX-315's unique linker design grants it exceptional
+                                oral bioavailability compared to traditional molecular glues.</p>
+                            <a href="#" class="btn btn-outline"
+                                style="padding: 8px 16px; font-size: 0.75rem; align-self:flex-start;">Preclinical
+                                Brief</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="terminal" style="margin-top:64px;">
+                    <div class="terminal-header">
+                        <div class="terminal-dot"></div>
+                        <div class="terminal-dot"></div>
+                        <div class="terminal-dot"></div>
+                        <span class="terminal-title">PIPELINE_STATUS — LIVE FEED</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line"><span class="terminal-prompt">$</span><span
+                                class="terminal-text">query --program NX-101 --status live</span></div>
+                        <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                class="terminal-text-green">NX-101 PHASE III — 847 patients enrolled / 1200
+                                target</span></div>
+                        <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                class="terminal-text">Interim analysis: ORR 47% vs 22% control arm (p&lt;0.001)</span>
+                        </div>
+                        <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                class="terminal-text-green">DSMB Recommendation: Continue enrollment — no safety
+                                flags</span></div>
+                        <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                class="terminal-text">Estimated completion: Q4 2025</span><span
+                                class="terminal-cursor"></span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">🧬</div><span>Nexora Bio Systems</span>
+                    </div>
+                    <p class="footer-desc">Engineering the future of human health.</p>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="research.html">Research</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Science</h4>
+                    <ul class="footer-links">
+                        <li><a href="publications.html">Publications</a></li>
+                        <li><a href="technology.html">Technology</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Get in Touch</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copy">© 2026 Nexora Bio Systems. All rights reserved.</p>
+                <div class="footer-status">
+                    <div class="footer-status-dot"></div>ALL SYSTEMS OPERATIONAL
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="core.js"></script>
+</body>
+
+</html>

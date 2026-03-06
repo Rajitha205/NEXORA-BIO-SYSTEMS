@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexora Bio Systems — Engineering the Future of Human Health</title>
+  <meta name="description"
+    content="Nexora Bio Systems pioneers advanced molecular research, regenerative biotechnology, and AI-powered drug discovery." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="home.css" />
+</head>
+
+<body>
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Background -->
+  <canvas id="particles-canvas"></canvas>
+  <div class="bg-grid"></div>
+  <div class="bg-orbs">
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">🧬</div>
+      <span>Nexora<span> Bio</span></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="technology.html">Technology</a></li>
+      <li><a href="pipeline.html">Pipeline</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="careers.html">Careers</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn-nav">Enter the Lab</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="research.html">Research</a>
+    <a href="technology.html">Technology</a>
+    <a href="pipeline.html">Pipeline</a>
+    <a href="publications.html">Publications</a>
+    <a href="about.html">About</a>
+    <a href="careers.html">Careers</a>
+    <a href="contact.html" class="btn btn-primary">Enter the Lab</a>
+  </div>
+
+  <!-- Page Wrapper -->
+  <main class="page-wrapper">
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="section-tag reveal">
+            <span class="section-tag-dot"></span>
+            Live Research Phase 04
+          </div>
+          <h1 class="hero-title reveal reveal-delay-1">
+            Engineering<br />
+            <span class="hero-title-gradient">the Future</span><br />
+            of Human Health
+          </h1>
+          <p class="hero-subtitle reveal reveal-delay-2">
+            Advanced molecular research, regenerative biotechnology, and AI-powered drug discovery — redefining the
+            limits of medical science.
+          </p>
+          <div class="hero-cta reveal reveal-delay-3">
+            <a href="research.html" class="btn btn-primary">
+              Explore Research
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a href="contact.html" class="btn btn-secondary">Enter the Lab</a>
+          </div>
+
+          <!-- Mini HUD Cards -->
+          <div class="hero-hud reveal reveal-delay-4">
+            <div class="hud-card card-glass card-glass--neon">
+              <div class="hud-label">Genome Sequence</div>
+              <div class="hud-value text-neon">99.98%</div>
+              <div class="hud-sub">Match Rate</div>
+            </div>
+            <div class="hud-card card-glass card-glass--neon animate-float-delay">
+              <div class="hud-label">Neural Sync</div>
+              <div class="hud-value text-cyan">Active</div>
+              <div class="hud-sub">Node Online</div>
+            </div>
+            <div class="hud-card card-glass card-glass--neon">
+              <div class="hud-label">AI Cycles</div>
+              <div class="hud-value text-neon">4.2M/s</div>
+              <div class="hud-sub">Processing</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DNA Scene -->
+        <div class="hero-visual">
+          <canvas id="dna-canvas"></canvas>
+
+          <!-- Floating HUD Elements -->
+          <div class="hud-float hud-top-left card-glass animate-float">
+            <span class="hud-float-label font-mono">FREQ: 432.18 MHz</span>
+            <span class="hud-float-label font-mono text-neon">STABILITY: CALIBRATED</span>
+          </div>
+          <div class="hud-float hud-top-right card-glass animate-float-delay">
+            <span class="hud-float-label font-mono text-cyan">ENZYME: TYPE-B</span>
+            <span class="hud-float-label font-mono">STRUCTURE: HEXAGONAL</span>
+          </div>
+          <div class="hud-metrics card-glass card-glass--neon animate-float">
+            <div class="hud-metrics-title font-mono">STRUCTURE DETAILS</div>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-label"><span>H-BOND DENSITY</span><span class="text-neon">88%</span></div>
+              <div class="progress-bar">
+                <div class="progress-bar-fill" data-width="88"></div>
+              </div>
+            </div>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-label"><span>CARBON STABILITY</span><span class="text-cyan">94%</span></div>
+              <div class="progress-bar">
+                <div class="progress-bar-fill"
+                  style="background: var(--cyan); box-shadow: 0 0 10px rgba(0,240,255,0.4);" data-width="94"></div>
+              </div>
+            </div>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-label"><span>AI OPTIMIZATION</span><span class="text-neon">97%</span></div>
+              <div class="progress-bar">
+                <div class="progress-bar-fill" data-width="97"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator" id="scrollIndicator">
+        <div class="scroll-text">Scroll</div>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ===== STATS SECTION ===== -->
+    <section class="section stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card card-glass reveal">
+            <div class="stat-icon">🧪</div>
+            <div class="stat-number" data-count="1200">0</div>
+            <div class="stat-label">Papers Published</div>
+          </div>
+          <div class="stat-card card-glass reveal reveal-delay-1">
+            <div class="stat-icon">🔬</div>
+            <div class="stat-number" data-count="85">0</div>
+            <div class="stat-label">Clinical Trials</div>
+          </div>
+          <div class="stat-card card-glass reveal reveal-delay-2">
+            <div class="stat-icon">🌍</div>
+            <div class="stat-number" data-count="24">0</div>
+            <div class="stat-label">Global Labs</div>
+          </div>
+          <div class="stat-card card-glass reveal reveal-delay-3">
+            <div class="stat-icon">👩‍🔬</div>
+            <div class="stat-number" data-count="450">0</div>
+            <div class="stat-label">Researchers</div>
+          </div>
+          <div class="stat-card card-glass reveal reveal-delay-4">
+            <div class="stat-icon">📋</div>
+            <div class="stat-number" data-count="128">0</div>
+            <div class="stat-label">Patents Filed</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CORE FEATURES ===== -->
+    <section class="section features-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-tag"><span class="section-tag-dot"></span>Core Capabilities</div>
+          <h2 class="section-title">Redefining <span>Biotechnology</span></h2>
+          <p class="section-subtitle">Three pillars of molecular innovation powering the next generation of medical
+            breakthroughs.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card card-glass card-glass--hover-rotate reveal">
+            <div class="feature-icon">
+              <div class="feature-icon-ring"></div>
+              🤖
+            </div>
+            <h3 class="feature-title">AI Drug Discovery</h3>
+            <p class="feature-desc">Accelerating drug design with AI-powered molecular simulations, reducing development
+              timelines by 40%.</p>
+            <div class="feature-stats">
+              <span class="badge badge-green">40% Faster</span>
+              <span class="badge badge-cyan">98.7% Accuracy</span>
+            </div>
+            <a href="technology.html" class="feature-link">Learn More →</a>
+          </div>
+
+          <div class="feature-card card-glass card-glass--hover-rotate reveal reveal-delay-1">
+            <div class="feature-icon feature-icon--cyan">
+              <div class="feature-icon-ring feature-icon-ring--cyan"></div>
+              🧬
+            </div>
+            <h3 class="feature-title">Gene Editing Platform</h3>
+            <p class="feature-desc">Precision CRISPR solutions for regenerative therapies and complex genetic repair
+              with nanoscale accuracy.</p>
+            <div class="feature-stats">
+              <span class="badge badge-cyan">CRISPR-X</span>
+              <span class="badge badge-green">Phase III</span>
+            </div>
+            <a href="research.html" class="feature-link">Explore Research →</a>
+          </div>
+
+          <div class="feature-card card-glass card-glass--hover-rotate reveal reveal-delay-2">
+            <div class="feature-icon feature-icon--purple">
+              <div class="feature-icon-ring feature-icon-ring--purple"></div>
+              🔭
+            </div>
+            <h3 class="feature-title">Precision Diagnostics</h3>
+            <p class="feature-desc">Predictive AI diagnostics delivering personalized treatment plans based on
+              individual molecular profiles.</p>
+            <div class="feature-stats">
+              <span class="badge badge-purple">AI-Powered</span>
+              <span class="badge badge-green">Real-time</span>
+            </div>
+            <a href="pipeline.html" class="feature-link">View Pipeline →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MOLECULAR VIEWER SECTION ===== -->
+    <section class="section molecular-section">
+      <div class="container">
+        <div class="molecular-layout">
+          <div class="molecular-info">
+            <div class="section-tag reveal"><span class="section-tag-dot"></span>3D Molecular Viewer</div>
+            <h2 class="section-title reveal">Interactive <span>Molecular</span> Models</h2>
+            <p class="section-subtitle reveal">Explore atomic structures in real-time. Click nodes to reveal holographic
+              data insights.</p>
+
+            <div class="mol-data-cards reveal">
+              <div class="mol-data-card card-glass card-glass--hover active" data-mol="0">
+                <div class="mol-data-label">Molecular Stability Index</div>
+                <div class="mol-data-value text-neon">98.7%</div>
+              </div>
+              <div class="mol-data-card card-glass card-glass--hover" data-mol="1">
+                <div class="mol-data-label">Regenerative Efficiency</div>
+                <div class="mol-data-value text-cyan">92%</div>
+              </div>
+              <div class="mol-data-card card-glass card-glass--hover" data-mol="2">
+                <div class="mol-data-label">AI Optimization Score</div>
+                <div class="mol-data-value text-neon">94%</div>
+              </div>
+              <div class="mol-data-card card-glass card-glass--hover" data-mol="3">
+                <div class="mol-data-label">Response Speed</div>
+                <div class="mol-data-value text-cyan">0.8ms</div>
+              </div>
+            </div>
+            <a href="technology.html" class="btn btn-outline reveal">View Full Technology →</a>
+          </div>
+          <div class="molecular-viewer">
+            <canvas id="molecular-canvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RESEARCH DIVISIONS ===== -->
+    <section class="section research-section">
+      <div class="container">
+        <div class="section-header reveal" style="text-align:center; margin-bottom: 64px;">
+          <div class="section-tag" style="justify-content:center;"><span class="section-tag-dot"></span>Research
+            Divisions</div>
+          <h2 class="section-title">Four Pillars of <span>Science</span></h2>
+          <p class="section-subtitle" style="margin: 0 auto;">Holographic research panels spanning the frontiers of
+            biological discovery.</p>
+        </div>
+
+        <div class="research-panels">
+          <div class="research-panel card-glass card-glass--hover-rotate reveal scanner-effect" data-color="green">
+            <div class="panel-mini-graph">
+              <div class="mini-graph-line" style="height:40%"></div>
+              <div class="mini-graph-line" style="height:60%"></div>
+              <div class="mini-graph-line" style="height:45%"></div>
+              <div class="mini-graph-line" style="height:80%"></div>
+              <div class="mini-graph-line" style="height:65%"></div>
+              <div class="mini-graph-line" style="height:90%"></div>
+              <div class="mini-graph-line" style="height:70%"></div>
+            </div>
+            <div class="panel-number">01</div>
+            <div class="panel-icon">🔬</div>
+            <h3 class="panel-title">Genetic Engineering</h3>
+            <p class="panel-desc">CRISPR-based cellular enhancement for next-gen regenerative therapies and precision
+              medicine.</p>
+            <div class="panel-tags"><span class="badge badge-green">Active</span><span
+                class="badge badge-cyan">CRISPR</span></div>
+          </div>
+
+          <div class="research-panel card-glass card-glass--hover-rotate reveal reveal-delay-1 scanner-effect"
+            data-color="cyan">
+            <div class="panel-mini-graph">
+              <div class="mini-graph-line mini-graph-line--cyan" style="height:70%"></div>
+              <div class="mini-graph-line mini-graph-line--cyan" style="height:50%"></div>
+              <div class="mini-graph-line mini-graph-line--cyan" style="height:85%"></div>
+              <div class="mini-graph-line mini-graph-line--cyan" style="height:40%"></div>
+              <div class="mini-graph-line mini-graph-line--cyan" style="height:60%"></div>
+              <div class="mini-graph-line mini-graph-line--cyan" style="height:75%"></div>
+              <div class="mini-graph-line mini-graph-line--cyan" style="height:90%"></div>
+            </div>
+            <div class="panel-number">02</div>
+            <div class="panel-icon">🧠</div>
+            <h3 class="panel-title">NeuroBio Systems</h3>
+            <p class="panel-desc">Brain-computer bio interfaces leveraging neural mapping and bioelectrical signal
+              translation.</p>
+            <div class="panel-tags"><span class="badge badge-cyan">Phase II</span><span
+                class="badge badge-green">Neural</span></div>
+          </div>
+
+          <div class="research-panel card-glass card-glass--hover-rotate reveal reveal-delay-2 scanner-effect"
+            data-color="green">
+            <div class="panel-mini-graph">
+              <div class="mini-graph-line" style="height:55%"></div>
+              <div class="mini-graph-line" style="height:70%"></div>
+              <div class="mini-graph-line" style="height:40%"></div>
+              <div class="mini-graph-line" style="height:85%"></div>
+              <div class="mini-graph-line" style="height:60%"></div>
+              <div class="mini-graph-line" style="height:75%"></div>
+              <div class="mini-graph-line" style="height:90%"></div>
+            </div>
+            <div class="panel-number">03</div>
+            <div class="panel-icon">⚗️</div>
+            <h3 class="panel-title">NanoCell Repair</h3>
+            <p class="panel-desc">Nanotechnology-driven cellular regeneration targeting damaged tissues at molecular
+              precision.</p>
+            <div class="panel-tags"><span class="badge badge-green">Nano</span><span class="badge badge-yellow">Phase
+                I</span></div>
+          </div>
+
+          <div class="research-panel card-glass card-glass--hover-rotate reveal reveal-delay-3 scanner-effect"
+            data-color="cyan">
+            <div class="panel-mini-graph">
+              <div class="mini-graph-line mini-graph-line--cyan" style="height:65%"></div>
+              <div class="mini-graph-line mini-graph-line--cyan" style="height:80%"></div>
+              <div class="mini-graph-line mini-graph-line--cyan" style="height:45%"></div>
+              <div class="mini-graph-line mini-graph-line--cyan" style="height:90%"></div>
+              <div class="mini-graph-line mini-graph-line--cyan" style="height:55%"></div>
+              <div class="mini-graph-line mini-graph-line--cyan" style="height:70%"></div>
+              <div class="mini-graph-line mini-graph-line--cyan" style="height:85%"></div>
+            </div>
+            <div class="panel-number">04</div>
+            <div class="panel-icon">🤖</div>
+            <h3 class="panel-title">Bio-AI Discovery</h3>
+            <p class="panel-desc">Machine learning-powered drug development with predictive protein modeling and genomic
+              analysis.</p>
+            <div class="panel-tags"><span class="badge badge-cyan">AI/ML</span><span
+                class="badge badge-green">Active</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== GLOBAL IMPACT ===== -->
+    <section class="section globe-section">
+      <div class="container">
+        <div class="globe-layout">
+          <div class="globe-info">
+            <div class="section-tag reveal"><span class="section-tag-dot"></span>Global Network</div>
+            <h2 class="section-title reveal">Worldwide <span>Impact</span></h2>
+            <p class="section-subtitle reveal">Real-time connectivity across 24 global laboratories and active clinical
+              trial nodes spanning 6 continents.</p>
+
+            <div class="globe-stats reveal">
+              <div class="globe-stat">
+                <div class="globe-stat-num text-neon">24</div>
+                <div class="globe-stat-label">Global Labs</div>
+              </div>
+              <div class="globe-stat-divider"></div>
+              <div class="globe-stat">
+                <div class="globe-stat-num text-cyan">6</div>
+                <div class="globe-stat-label">Continents</div>
+              </div>
+              <div class="globe-stat-divider"></div>
+              <div class="globe-stat">
+                <div class="globe-stat-num text-neon">450+</div>
+                <div class="globe-stat-label">Scientists</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="globe-visual">
+            <canvas id="globe-canvas"></canvas>
+            <div class="globe-nodes">
+              <div class="globe-node" style="top:28%; left:15%">
+                <div class="globe-node-dot"></div>
+                <div class="globe-node-ping"></div>
+                <div class="globe-node-label">San Francisco</div>
+              </div>
+              <div class="globe-node" style="top:32%; left:48%">
+                <div class="globe-node-dot"></div>
+                <div class="globe-node-ping"></div>
+                <div class="globe-node-label">Zurich</div>
+              </div>
+              <div class="globe-node" style="top:38%; left:82%">
+                <div class="globe-node-dot"></div>
+                <div class="globe-node-ping"></div>
+                <div class="globe-node-label">Tokyo</div>
+              </div>
+              <div class="globe-node" style="top:62%; left:74%">
+                <div class="globe-node-dot globe-node-dot--cyan"></div>
+                <div class="globe-node-ping globe-node-ping--cyan"></div>
+                <div class="globe-node-label">Singapore</div>
+              </div>
+              <div class="globe-node" style="top:45%; left:60%">
+                <div class="globe-node-dot"></div>
+                <div class="globe-node-ping"></div>
+                <div class="globe-node-label">Mumbai</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PIPELINE PREVIEW ===== -->
+    <section class="section pipeline-preview">
+      <div class="container">
+        <div class="section-header reveal" style="text-align:center;">
+          <div class="section-tag" style="justify-content:center;"><span class="section-tag-dot"></span>Clinical
+            Pipeline</div>
+          <h2 class="section-title">From Lab to <span>Life</span></h2>
+        </div>
+
+        <div class="pipeline-timeline reveal">
+          <div class="pipeline-track">
+            <div class="pipeline-progress-line"></div>
+          </div>
+          <div class="pipeline-phases">
+            <div class="pipeline-phase done">
+              <div class="phase-node">
+                <div class="phase-node-inner"></div>
+              </div>
+              <div class="phase-card card-glass card-glass--hover">
+                <div class="phase-num">I</div>
+                <h4 class="phase-title">Cellular Trials</h4>
+                <p class="phase-desc">In vitro validation and safety profiling</p>
+                <span class="badge badge-green">Complete</span>
+              </div>
+            </div>
+            <div class="pipeline-phase done">
+              <div class="phase-node">
+                <div class="phase-node-inner"></div>
+              </div>
+              <div class="phase-card card-glass card-glass--hover">
+                <div class="phase-num">II</div>
+                <h4 class="phase-title">Controlled Testing</h4>
+                <p class="phase-desc">Human dose-response and efficacy studies</p>
+                <span class="badge badge-cyan">Active</span>
+              </div>
+            </div>
+            <div class="pipeline-phase active">
+              <div class="phase-node phase-node--active">
+                <div class="phase-node-inner"></div>
+                <div class="phase-node-ring"></div>
+              </div>
+              <div class="phase-card card-glass card-glass--hover">
+                <div class="phase-num">III</div>
+                <h4 class="phase-title">Regulatory Approval</h4>
+                <p class="phase-desc">Multi-site pivotal trials and FDA submission</p>
+                <span class="badge badge-yellow">In Progress</span>
+              </div>
+            </div>
+            <div class="pipeline-phase">
+              <div class="phase-node phase-node--pending">
+                <div class="phase-node-inner"></div>
+              </div>
+              <div class="phase-card card-glass card-glass--hover">
+                <div class="phase-num">IV</div>
+                <h4 class="phase-title">Market Launch</h4>
+                <p class="phase-desc">Global commercialization and distribution</p>
+                <span class="badge badge-purple">Planned</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; margin-top:48px;">
+          <a href="pipeline.html" class="btn btn-outline reveal">Full Pipeline Overview →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TERMINAL CTA ===== -->
+    <section class="section terminal-cta-section">
+      <div class="container-sm">
+        <div class="terminal reveal">
+          <div class="terminal-header">
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <span class="terminal-title">NEXORA_TERMINAL_V4.0 — SECURE CHANNEL</span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line"><span class="terminal-prompt">$</span><span class="terminal-text">CONNECTING TO
+                NEXORA MAINFRAME...</span></div>
+            <div class="terminal-line"><span class="terminal-prompt">></span><span class="terminal-text-green">ENCRYPTED
+                CHANNEL ESTABLISHED</span></div>
+            <div class="terminal-line"><span class="terminal-prompt">></span><span class="terminal-text">NODE SYNC:
+                COMPLETED (4.2ms)</span></div>
+            <div class="terminal-line"><span class="terminal-prompt">></span><span class="terminal-text-green">DATA
+                STREAM ACTIVE: 12.4GB/s</span></div>
+            <div class="terminal-line"><span class="terminal-prompt">></span><span class="terminal-text">AWAITING
+                PARTNERSHIP REQUEST...</span><span class="terminal-cursor"></span></div>
+            <div class="terminal-cta-actions">
+              <a href="contact.html" class="btn btn-primary">Transmit Request →</a>
+              <a href="about.html" class="btn btn-secondary">Learn Our Mission</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== LATEST BREAKTHROUGH ===== -->
+    <section class="section"
+      style="background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(57,255,20,0.03), transparent);">
+      <div class="container">
+        <div class="section-header reveal" style="margin-bottom:56px;">
+          <div class="section-tag"><span class="section-tag-dot"></span>Breakthrough 2025</div>
+          <h2 class="section-title">Latest <span>Discovery</span></h2>
+          <p class="section-subtitle">Our most recent scientific milestone — published in <em>Nature Biotechnology</em>,
+            March 2025.</p>
+        </div>
+        <div class="breakthrough-grid">
+          <div class="card-glass reveal" style="padding:48px; position:relative; overflow:hidden;">
+            <div
+              style="position:absolute; top:-20px; right:-20px; font-size:120px; opacity:0.04; font-family:'Orbitron',sans-serif; font-weight:900; pointer-events:none;">
+              DNA</div>
+            <div class="section-tag" style="margin-bottom:24px;"><span class="section-tag-dot"></span>Nature
+              Biotechnology · Mar 2025</div>
+            <h3 style="font-size:1.6rem; font-weight:800; margin-bottom:20px; line-height:1.3;">AI-Accelerated KRAS
+              Inhibitor Design Achieves 97% Binding Fidelity</h3>
+            <p style="color:var(--text-secondary); line-height:1.8; margin-bottom:28px; font-size:0.94rem;">
+              Our BioCore-X v3 engine predicted and optimized 14,000 KRAS G12C inhibitor variants in 72 hours — a
+              process that previously took 4 years. The lead compound NX-101 showed 97.2% on-target binding fidelity in
+              cryo-EM validation, outperforming sotorasib by 2.3-fold in head-to-head tumor regression assays.
+            </p>
+            <div class="breakthrough-stats">
+              <div
+                style="text-align:center; padding:16px; background:rgba(57,255,20,0.06); border-radius:12px; border:1px solid rgba(57,255,20,0.15);">
+                <div
+                  style="font-family:'Orbitron',sans-serif; font-size:1.4rem; font-weight:900; color:var(--neon-green);">
+                  97.2%</div>
+                <div
+                  style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;">
+                  Binding Fidelity</div>
+              </div>
+              <div
+                style="text-align:center; padding:16px; background:rgba(0,240,255,0.06); border-radius:12px; border:1px solid rgba(0,240,255,0.15);">
+                <div style="font-family:'Orbitron',sans-serif; font-size:1.4rem; font-weight:900; color:var(--cyan);">
+                  2.3×</div>
+                <div
+                  style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;">
+                  vs. Sotorasib</div>
+              </div>
+              <div
+                style="text-align:center; padding:16px; background:rgba(57,255,20,0.06); border-radius:12px; border:1px solid rgba(57,255,20,0.15);">
+                <div
+                  style="font-family:'Orbitron',sans-serif; font-size:1.4rem; font-weight:900; color:var(--neon-green);">
+                  72h</div>
+                <div
+                  style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;">
+                  Discovery Time</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <a href="publications.html" class="btn btn-primary">Read the Paper →</a>
+              <a href="pipeline.html" class="btn btn-secondary">View NX-101 Trial</a>
+            </div>
+          </div>
+          <div class="reveal" style="display:flex; flex-direction:column; gap:20px;">
+            <div class="card-glass card-glass--hover"
+              style="padding:28px; display:flex; gap:16px; align-items:flex-start;">
+              <div
+                style="width:44px; height:44px; flex-shrink:0; border-radius:12px; background:rgba(57,255,20,0.08); border:1px solid rgba(57,255,20,0.2); display:flex; align-items:center; justify-content:center; font-size:22px;">
+                🔬</div>
+              <div>
+                <div style="font-weight:700; margin-bottom:6px; font-size:0.9rem;">Gene Circuit Breakthrough</div>
+                <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">First programmable gene
+                  circuit capable of detecting and reversing epigenetic drift in aging cells — paper in preprint review
+                  at Cell.</div>
+                <div
+                  style="font-size:0.7rem; color:var(--neon-green); margin-top:8px; font-family:'JetBrains Mono',monospace;">
+                  Jan 2025 · Preprint</div>
+              </div>
+            </div>
+            <div class="card-glass card-glass--hover"
+              style="padding:28px; display:flex; gap:16px; align-items:flex-start;">
+              <div
+                style="width:44px; height:44px; flex-shrink:0; border-radius:12px; background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.2); display:flex; align-items:center; justify-content:center; font-size:22px;">
+                🧠</div>
+              <div>
+                <div style="font-weight:700; margin-bottom:6px; font-size:0.9rem;">Tau Aggregation Model</div>
+                <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">AI-predicted tau
+                  propagation pathway in Alzheimer's with 92.4% accuracy against longitudinal PET scan data from 4,200
+                  patients.</div>
+                <div
+                  style="font-size:0.7rem; color:var(--cyan); margin-top:8px; font-family:'JetBrains Mono',monospace;">
+                  Feb 2025 · Science TM</div>
+              </div>
+            </div>
+            <div class="card-glass card-glass--hover"
+              style="padding:28px; display:flex; gap:16px; align-items:flex-start;">
+              <div
+                style="width:44px; height:44px; flex-shrink:0; border-radius:12px; background:rgba(57,255,20,0.08); border:1px solid rgba(57,255,20,0.2); display:flex; align-items:center; justify-content:center; font-size:22px;">
+                ⚡</div>
+              <div>
+                <div style="font-weight:700; margin-bottom:6px; font-size:0.9rem;">Universal CAR-T IND Cleared</div>
+                <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">FDA cleared
+                  investigational new drug application for NX-1001 allogeneic CAR-T platform. First-in-human dosing Q2
+                  2025.</div>
+                <div
+                  style="font-size:0.7rem; color:var(--neon-green); margin-top:8px; font-family:'JetBrains Mono',monospace;">
+                  Mar 2025 · Regulatory</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal" style="text-align:center; margin-bottom:60px;">
+          <div class="section-tag" style="justify-content:center;"><span class="section-tag-dot"></span>Process</div>
+          <h2 class="section-title">How Nexora <span>Works</span></h2>
+          <p class="section-subtitle" style="margin:0 auto;">From raw biological data to clinical therapy in four
+            AI-powered stages.</p>
+        </div>
+        <div class="how-it-works-grid">
+          <div
+            style="position:absolute; top:48px; left:12.5%; right:12.5%; height:1px; background:linear-gradient(90deg, var(--neon-green), var(--cyan), var(--neon-green)); opacity:0.3;">
+          </div>
+          <div class="reveal" style="padding:32px 24px; text-align:center; position:relative;">
+            <div
+              style="width:96px; height:96px; border-radius:50%; background:rgba(57,255,20,0.06); border:2px solid var(--neon-border); display:flex; align-items:center; justify-content:center; margin:0 auto 28px; font-size:36px; position:relative; z-index:1; box-shadow:0 0 30px rgba(57,255,20,0.15);">
+              🔬</div>
+            <div
+              style="font-family:'Orbitron',sans-serif; font-size:0.65rem; color:var(--neon-green); letter-spacing:0.15em; margin-bottom:12px;">
+              STAGE 01</div>
+            <div style="font-size:1rem; font-weight:700; margin-bottom:12px;">Data Ingestion</div>
+            <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7;">Genomic databases, clinical
+              records, proteomic profiles, and imaging datasets unified into a single molecular graph.</div>
+          </div>
+          <div class="reveal reveal-delay-1" style="padding:32px 24px; text-align:center; position:relative;">
+            <div
+              style="width:96px; height:96px; border-radius:50%; background:rgba(0,240,255,0.06); border:2px solid rgba(0,240,255,0.3); display:flex; align-items:center; justify-content:center; margin:0 auto 28px; font-size:36px; position:relative; z-index:1; box-shadow:0 0 30px rgba(0,240,255,0.12);">
+              🤖</div>
+            <div
+              style="font-family:'Orbitron',sans-serif; font-size:0.65rem; color:var(--cyan); letter-spacing:0.15em; margin-bottom:12px;">
+              STAGE 02</div>
+            <div style="font-size:1rem; font-weight:700; margin-bottom:12px;">AI Prediction</div>
+            <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7;">BioCore-X models 50,000+
+              compound-target interactions per hour with 98.7% binding accuracy using transformer attention.</div>
+          </div>
+          <div class="reveal reveal-delay-2" style="padding:32px 24px; text-align:center; position:relative;">
+            <div
+              style="width:96px; height:96px; border-radius:50%; background:rgba(57,255,20,0.06); border:2px solid var(--neon-border); display:flex; align-items:center; justify-content:center; margin:0 auto 28px; font-size:36px; position:relative; z-index:1; box-shadow:0 0 30px rgba(57,255,20,0.15);">
+              ⚗️</div>
+            <div
+              style="font-family:'Orbitron',sans-serif; font-size:0.65rem; color:var(--neon-green); letter-spacing:0.15em; margin-bottom:12px;">
+              STAGE 03</div>
+            <div style="font-size:1rem; font-weight:700; margin-bottom:12px;">Wet Lab Validation</div>
+            <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7;">Top candidates synthesized by
+              robotic lab platforms and validated in cell lines, organoids, and mouse models within 8 weeks.</div>
+          </div>
+          <div class="reveal reveal-delay-3" style="padding:32px 24px; text-align:center; position:relative;">
+            <div
+              style="width:96px; height:96px; border-radius:50%; background:rgba(0,240,255,0.06); border:2px solid rgba(0,240,255,0.3); display:flex; align-items:center; justify-content:center; margin:0 auto 28px; font-size:36px; position:relative; z-index:1; box-shadow:0 0 30px rgba(0,240,255,0.12);">
+              🏥</div>
+            <div
+              style="font-family:'Orbitron',sans-serif; font-size:0.65rem; color:var(--cyan); letter-spacing:0.15em; margin-bottom:12px;">
+              STAGE 04</div>
+            <div style="font-size:1rem; font-weight:700; margin-bottom:12px;">Clinical Execution</div>
+            <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7;">IND-cleared candidates enter
+              Phase I–III trials across 18 partner hospitals, monitored by AI safety dashboards in real time.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PARTNERS & AWARDS ===== -->
+    <section class="section"
+      style="background: radial-gradient(ellipse 70% 50% at 30% 50%, rgba(0,240,255,0.03), transparent);">
+      <div class="container">
+        <div class="section-header reveal" style="text-align:center; margin-bottom:56px;">
+          <div class="section-tag" style="justify-content:center;"><span class="section-tag-dot"></span>Recognition
+          </div>
+          <h2 class="section-title">Partners & <span>Awards</span></h2>
+        </div>
+        <div class="two-col-grid">
+          <!-- Partners -->
+          <div class="reveal">
+            <div
+              style="font-family:'Orbitron',sans-serif; font-size:0.7rem; color:var(--neon-green); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:32px;">
+              Strategic Partners</div>
+            <div class="two-col-grid-sm">
+              <div class="card-glass card-glass--hover" style="padding:24px; text-align:center;">
+                <div style="font-size:2rem; margin-bottom:8px;">🏛️</div>
+                <div
+                  style="font-family:'Orbitron',sans-serif; font-size:0.75rem; font-weight:700; color:var(--text-primary);">
+                  MIT BioSynth</div>
+                <div style="font-size:0.72rem; color:var(--text-muted); margin-top:4px;">Research Partner</div>
+              </div>
+              <div class="card-glass card-glass--hover" style="padding:24px; text-align:center;">
+                <div style="font-size:2rem; margin-bottom:8px;">🌐</div>
+                <div
+                  style="font-family:'Orbitron',sans-serif; font-size:0.75rem; font-weight:700; color:var(--text-primary);">
+                  WHO Collaborator</div>
+                <div style="font-size:0.72rem; color:var(--text-muted); margin-top:4px;">Global Health Partner</div>
+              </div>
+              <div class="card-glass card-glass--hover" style="padding:24px; text-align:center;">
+                <div style="font-size:2rem; margin-bottom:8px;">⚛️</div>
+                <div
+                  style="font-family:'Orbitron',sans-serif; font-size:0.75rem; font-weight:700; color:var(--text-primary);">
+                  CERN BioLab</div>
+                <div style="font-size:0.72rem; color:var(--text-muted); margin-top:4px;">Physics Interface</div>
+              </div>
+              <div class="card-glass card-glass--hover" style="padding:24px; text-align:center;">
+                <div style="font-size:2rem; margin-bottom:8px;">🔭</div>
+                <div
+                  style="font-family:'Orbitron',sans-serif; font-size:0.75rem; font-weight:700; color:var(--text-primary);">
+                  Stanford Genomics</div>
+                <div style="font-size:0.72rem; color:var(--text-muted); margin-top:4px;">Data Partner</div>
+              </div>
+            </div>
+          </div>
+          <!-- Awards -->
+          <div class="reveal">
+            <div
+              style="font-family:'Orbitron',sans-serif; font-size:0.7rem; color:var(--cyan); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:32px;">
+              Awards & Recognition</div>
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="card-glass card-glass--hover"
+                style="padding:24px; display:flex; gap:16px; align-items:center;">
+                <div style="font-size:1.8rem; flex-shrink:0;">🏆</div>
+                <div>
+                  <div style="font-weight:700; font-size:0.9rem; margin-bottom:4px;">Nature Biotech Top 10</div>
+                  <div style="font-size:0.8rem; color:var(--text-secondary);">Most Innovative Biotech Company of 2024
+                  </div>
+                </div>
+                <span class="badge badge-green" style="margin-left:auto; white-space:nowrap;">2024</span>
+              </div>
+              <div class="card-glass card-glass--hover"
+                style="padding:24px; display:flex; gap:16px; align-items:center;">
+                <div style="font-size:1.8rem; flex-shrink:0;">🌟</div>
+                <div>
+                  <div style="font-weight:700; font-size:0.9rem; margin-bottom:4px;">WHO Global Health Prize</div>
+                  <div style="font-size:0.8rem; color:var(--text-secondary);">Access to Medicine Initiative Excellence
+                  </div>
+                </div>
+                <span class="badge badge-cyan" style="margin-left:auto; white-space:nowrap;">2024</span>
+              </div>
+              <div class="card-glass card-glass--hover"
+                style="padding:24px; display:flex; gap:16px; align-items:center;">
+                <div style="font-size:1.8rem; flex-shrink:0;">🎖️</div>
+                <div>
+                  <div style="font-weight:700; font-size:0.9rem; margin-bottom:4px;">EU Innovation Award</div>
+                  <div style="font-size:0.8rem; color:var(--text-secondary);">Best Deep-Tech Life Sciences Company</div>
+                </div>
+                <span class="badge badge-green" style="margin-left:auto; white-space:nowrap;">2023</span>
+              </div>
+              <div class="card-glass card-glass--hover"
+                style="padding:24px; display:flex; gap:16px; align-items:center;">
+                <div style="font-size:1.8rem; flex-shrink:0;">🔬</div>
+                <div>
+                  <div style="font-weight:700; font-size:0.9rem; margin-bottom:4px;">Forbes AI Impact 50</div>
+                  <div style="font-size:0.8rem; color:var(--text-secondary);">Ranked #3 in Healthcare AI globally</div>
+                </div>
+                <span class="badge badge-cyan" style="margin-left:auto; white-space:nowrap;">2023</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal" style="text-align:center; margin-bottom:56px;">
+          <div class="section-tag" style="justify-content:center;"><span class="section-tag-dot"></span>Voices</div>
+          <h2 class="section-title">What Scientists <span>Say</span></h2>
+        </div>
+        <div class="three-col-grid">
+          <div class="card-glass card-glass--hover reveal" style="padding:36px; position:relative;">
+            <div
+              style="font-size:60px; line-height:1; color:rgba(57,255,20,0.15); font-family:serif; position:absolute; top:20px; left:24px;">
+              "</div>
+            <p
+              style="font-size:0.92rem; color:var(--text-secondary); line-height:1.8; margin:32px 0 28px; font-style:italic;">
+              Nexora's AI pipeline predicted a binding site we had missed for 3 years. Within 6 weeks of their compound
+              delivery, we had reproducible 89% tumor regression in orthotopic models. Unprecedented.</p>
+            <div
+              style="display:flex; align-items:center; gap:12px; padding-top:20px; border-top:1px solid var(--glass-border);">
+              <div
+                style="width:44px; height:44px; border-radius:50%; background:rgba(57,255,20,0.1); border:1px solid rgba(57,255,20,0.2); display:flex; align-items:center; justify-content:center; font-size:22px;">
+                👩‍🔬</div>
+              <div>
+                <div style="font-weight:700; font-size:0.85rem;">Prof. M. Tanaka</div>
+                <div style="font-size:0.72rem; color:var(--text-muted);">Kyoto University Oncology Institute</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-glass card-glass--hover reveal reveal-delay-1" style="padding:36px; position:relative;">
+            <div
+              style="font-size:60px; line-height:1; color:rgba(0,240,255,0.12); font-family:serif; position:absolute; top:20px; left:24px;">
+              "</div>
+            <p
+              style="font-size:0.92rem; color:var(--text-secondary); line-height:1.8; margin:32px 0 28px; font-style:italic;">
+              The BioCore-X system modeled our rare mutation with structural precision we simply couldn't achieve
+              in-house. This is the future of collaborative drug discovery — and Nexora is already living in it.</p>
+            <div
+              style="display:flex; align-items:center; gap:12px; padding-top:20px; border-top:1px solid var(--glass-border);">
+              <div
+                style="width:44px; height:44px; border-radius:50%; background:rgba(0,240,255,0.1); border:1px solid rgba(0,240,255,0.2); display:flex; align-items:center; justify-content:center; font-size:22px;">
+                👨‍⚕️</div>
+              <div>
+                <div style="font-weight:700; font-size:0.85rem;">Dr. Eric Blanchard</div>
+                <div style="font-size:0.72rem; color:var(--text-muted);">Harvard Medical School</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-glass card-glass--hover reveal reveal-delay-2" style="padding:36px; position:relative;">
+            <div
+              style="font-size:60px; line-height:1; color:rgba(57,255,20,0.12); font-family:serif; position:absolute; top:20px; left:24px;">
+              "</div>
+            <p
+              style="font-size:0.92rem; color:var(--text-secondary); line-height:1.8; margin:32px 0 28px; font-style:italic;">
+              What startles me is not just the speed. It's the quality. Every Nexora compound comes with a molecular
+              simulation report that rivals 6 months of wet lab characterization. The scientific rigor is unmatched.</p>
+            <div
+              style="display:flex; align-items:center; gap:12px; padding-top:20px; border-top:1px solid var(--glass-border);">
+              <div
+                style="width:44px; height:44px; border-radius:50%; background:rgba(57,255,20,0.1); border:1px solid rgba(57,255,20,0.2); display:flex; align-items:center; justify-content:center; font-size:22px;">
+                👩‍💻</div>
+              <div>
+                <div style="font-weight:700; font-size:0.85rem;">Dr. Amara Singh</div>
+                <div style="font-size:0.72rem; color:var(--text-muted);">Imperial College London</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NEWSLETTER ===== -->
+    <section class="section"
+      style="background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(57,255,20,0.04), transparent);">
+      <div class="container-sm">
+        <div class="terminal reveal">
+          <div class="terminal-header">
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <span class="terminal-title">NEXORA_SIGNAL — SUBSCRIBE TO RESEARCH UPDATES</span>
+          </div>
+          <div class="terminal-body" style="padding:40px;">
+            <div style="text-align:center; margin-bottom:32px;">
+              <div class="section-tag" style="justify-content:center; margin-bottom:16px;"><span
+                  class="section-tag-dot"></span>Research Signal</div>
+              <h3 style="font-size:1.8rem; font-weight:800; margin-bottom:12px;">Stay at the <span
+                  style="color:var(--neon-green);">Frontier</span></h3>
+              <p
+                style="font-size:0.9rem; color:var(--text-secondary); max-width:480px; margin:0 auto; line-height:1.7;">
+                Monthly briefings on Nexora breakthroughs, publication alerts, and open trial opportunities. Zero spam —
+                pure science.</p>
+            </div>
+            <div style="display:flex; gap:12px; max-width:480px; margin: 0 auto;" id="nlForm">
+              <input type="email" id="nlEmail" placeholder="your@institution.edu"
+                style="flex:1; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:14px 18px; color:var(--text-primary); font-family:'JetBrains Mono',monospace; font-size:0.85rem; outline:none; transition:border 0.3s;"
+                onfocus="this.style.borderColor='rgba(57,255,20,0.5)'"
+                onblur="this.style.borderColor='rgba(255,255,255,0.1)'" />
+              <button onclick="subscribeNL()"
+                style="padding:14px 28px; background:var(--neon-green); color:var(--black); border:none; border-radius:10px; font-family:'Orbitron',sans-serif; font-size:0.75rem; font-weight:800; letter-spacing:0.1em; cursor:pointer; white-space:nowrap; transition:all 0.3s;"
+                onmouseover="this.style.boxShadow='0 0 24px rgba(57,255,20,0.5)'"
+                onmouseout="this.style.boxShadow=''">TRANSMIT →</button>
+            </div>
+            <div id="nlSuccess"
+              style="display:none; text-align:center; margin-top:20px; color:var(--neon-green); font-family:'JetBrains Mono',monospace; font-size:0.85rem;">
+              ✓ SUBSCRIPTION CONFIRMED — SIGNAL ACTIVE</div>
+            <div style="display:flex; justify-content:center; gap:24px; margin-top:28px; flex-wrap:wrap;">
+              <span style="font-size:0.75rem; color:var(--text-muted);">✓ 8,400+ Scientists</span>
+              <span style="font-size:0.75rem; color:var(--text-muted);">✓ Monthly Digest</span>
+              <span style="font-size:0.75rem; color:var(--text-muted);">✓ Zero Ads</span>
+              <span style="font-size:0.75rem; color:var(--text-muted);">✓ Unsubscribe Anytime</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function subscribeNL() {
+      const email = document.getElementById('nlEmail').value.trim();
+      if (!email || !email.includes('@')) { document.getElementById('nlEmail').style.borderColor = 'red'; return; }
+      document.getElementById('nlForm').style.display = 'none';
+      document.getElementById('nlSuccess').style.display = 'block';
+    }
+  </script>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="footer-logo-icon">🧬</div>
+            <span>Nexora Bio Systems</span>
+          </div>
+          <p class="footer-desc">Engineering the future of human health through advanced molecular research, synthetic
+            biology, and AI-powered drug discovery.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" title="LinkedIn">in</a>
+            <a href="#" class="footer-social" title="Twitter">𝕏</a>
+            <a href="#" class="footer-social" title="GitHub">gh</a>
+            <a href="#" class="footer-social" title="ArXiv">∂</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-col-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="pipeline.html">Pipeline</a></li>
+            <li><a href="careers.html">Careers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-col-title">Science</h4>
+          <ul class="footer-links">
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="research.html#oncology">Oncology</a></li>
+            <li><a href="research.html#neurobio">NeuroBio</a></li>
+            <li><a href="research.html#nanocell">NanoCell</a></li>
+            <li><a href="research.html#bioai">Bio-AI</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-col-title">Contact</h4>
+          <ul class="footer-links">
+            <li><a href="contact.html">Get in Touch</a></li>
+            <li><a href="contact.html#partnership">Partnership</a></li>
+            <li><a href="contact.html#press">Press</a></li>
+            <li><a href="#">Investor Relations</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Nexora Bio Systems. All rights reserved.</p>
+        <div class="footer-status">
+          <div class="footer-status-dot"></div>
+          ALL SYSTEMS OPERATIONAL
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="core.js"></script>
+  <script src="home.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Nexora — Detailed Vision | Nexora Bio Systems</title>
+    <meta name="description"
+        content="Explore the vision, mission, and team behind Nexora Bio Systems — pioneering the next frontier of human health." />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .about-hero {
+            padding: 160px 0 100px;
+            text-align: center;
+        }
+
+        .about-hero .section-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+        }
+
+        .founder-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-top: 80px;
+        }
+
+        .founder-image-wrap {
+            position: relative;
+        }
+
+        .founder-image {
+            width: 100%;
+            aspect-ratio: 1/1.2;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.1), rgba(0, 240, 255, 0.1));
+            border: 1px solid var(--neon-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .founder-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(57, 255, 20, 0.05));
+        }
+
+        .founder-ring {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 1px solid rgba(57, 255, 20, 0.15);
+            animation: spin 20s linear infinite;
+            top: 50%;
+            left: 50%;
+            margin-top: -100px;
+            margin-left: -100px;
+        }
+
+        .founder-ring:nth-child(2) {
+            width: 280px;
+            height: 280px;
+            animation-direction: reverse;
+            animation-duration: 30s;
+            margin-top: -140px;
+            margin-left: -140px;
+        }
+
+        .founder-badge {
+            position: absolute;
+            bottom: 32px;
+            right: -16px;
+            background: var(--black-2);
+            border: 1px solid var(--neon-border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+        }
+
+        .founder-badge-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--neon-green);
+        }
+
+        .founder-badge-title {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .founder-quote {
+            font-size: 1.6rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--text-primary);
+            margin-bottom: 32px;
+        }
+
+        .founder-bio {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(180deg, var(--neon-green), var(--cyan), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 24px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px - 4px;
+            top: 6px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .timeline-year {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            color: var(--neon-green);
+            letter-spacing: 0.12em;
+            margin-bottom: 6px;
+        }
+
+        .timeline-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .team-card {
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .team-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.15), rgba(0, 240, 255, 0.15));
+            border: 2px solid var(--neon-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            position: relative;
+        }
+
+        .team-avatar::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            animation: spin 10s linear infinite;
+        }
+
+        .team-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .team-role {
+            font-size: 0.75rem;
+            color: var(--neon-green);
+            margin-bottom: 8px;
+        }
+
+        .team-bio {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .ethics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .ethics-card {
+            padding: 36px;
+        }
+
+        .ethics-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .ethics-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .ethics-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .values-section {
+            background: linear-gradient(180deg, transparent, rgba(57, 255, 20, 0.02), transparent);
+        }
+
+        @media (max-width: 900px) {
+            .founder-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ethics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <canvas id="particles-canvas"></canvas>
+    <div class="bg-grid"></div>
+    <div class="bg-orbs">
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+    </div>
+
+    <nav class="nav" id="nav">
+        <div class="nav-logo">
+            <div class="nav-logo-icon">🧬</div>
+            <span>Nexora<span> Bio</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="pipeline.html">Pipeline</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="about.html" class="active">About</a></li>
+            <li><a href="careers.html">Careers</a></li>
+        </ul>
+        <div class="nav-cta"><a href="contact.html" class="btn-nav">Enter the Lab</a></div>
+        <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a><a href="research.html">Research</a><a href="technology.html">Technology</a>
+        <a href="pipeline.html">Pipeline</a><a href="publications.html">Publications</a>
+        <a href="about.html">About</a><a href="careers.html">Careers</a>
+        <a href="contact.html" class="btn btn-primary">Enter the Lab</a>
+    </div>
+
+    <main class="page-wrapper">
+        <!-- HERO -->
+        <section class="about-hero section">
+            <div class="container">
+                <div class="section-tag reveal" style="justify-content:center;"><span class="section-tag-dot"></span>Our
+                    Story</div>
+                <h1 class="section-title reveal">Detailed <span>Vision</span></h1>
+                <p class="section-subtitle reveal" style="margin: 0 auto 32px; text-align:center;">
+                    Founded on the belief that science, when empowered by artificial intelligence, can eliminate the
+                    most devastating diseases of our time.
+                </p>
+                <div style="display:flex; justify-content:center; gap:16px;" class="reveal">
+                    <a href="research.html" class="btn btn-primary">Explore Our Research</a>
+                    <a href="contact.html" class="btn btn-secondary">Get in Touch</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOUNDER STORY -->
+        <section class="section">
+            <div class="container">
+                <div class="founder-grid">
+                    <div class="founder-image-wrap reveal">
+                        <div class="founder-image"
+                            style="position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                            <canvas id="about-canvas"
+                                style="position:absolute; width:100%; height:100%; top:0; left:0; pointer-events:none; z-index:2;"></canvas>
+                            <div class="founder-ring"></div>
+                            <div class="founder-ring"></div>
+                        </div>
+                        <div class="founder-badge">
+                            <div class="founder-badge-name">Dr. Aris Thorne</div>
+                            <div class="founder-badge-title">Founder & Chief Molecular Officer</div>
+                        </div>
+                    </div>
+                    <div class="reveal">
+                        <div class="section-tag" style="margin-bottom:24px;"><span
+                                class="section-tag-dot"></span>Founder Story</div>
+                        <p class="founder-quote">"We don't just study biology — we rewrite it."</p>
+                        <p class="founder-bio">Dr. Aris Thorne founded Nexora Bio Systems in 2018 after a decade at CERN
+                            and MIT's Synthetic Biology Center. Witnessing the limitations of traditional pharmaceutical
+                            development, he envisioned a new paradigm — one where artificial intelligence and molecular
+                            engineering converge to compress decades of discovery into years.</p>
+                        <p class="founder-bio">Beginning with a small team in a garage laboratory in Zurich, Nexora has
+                            grown into a globally recognized pioneer with facilities across 24 cities and partnerships
+                            with top research institutions worldwide.</p>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-year">2018</div>
+                                <div class="timeline-title">Company Founded</div>
+                                <div class="timeline-desc">Incorporated in Zurich, first seed round secured from
+                                    Bio-Invest Capital</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">2020</div>
+                                <div class="timeline-title">BioCore-X Engine Launch</div>
+                                <div class="timeline-desc">First AI protein folding engine reduces drug discovery
+                                    timeline by 40%</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">2022</div>
+                                <div class="timeline-title">Global Expansion</div>
+                                <div class="timeline-desc">Opened labs in San Francisco, Tokyo, Singapore, and Mumbai
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">2024</div>
+                                <div class="timeline-title">Phase III Milestone</div>
+                                <div class="timeline-desc">NX-101 enters Phase III clinical trials for lung cancer
+                                    treatment</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">2025</div>
+                                <div class="timeline-title">1,200 Publications</div>
+                                <div class="timeline-desc">Nexora research cited in over 8,000 scientific papers
+                                    worldwide</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEAM -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header reveal" style="text-align:center; margin-bottom:56px;">
+                    <div class="section-tag" style="justify-content:center;"><span class="section-tag-dot"></span>The
+                        Team</div>
+                    <h2 class="section-title">Our <span>Holographic</span> Team</h2>
+                    <p class="section-subtitle" style="margin:0 auto;">40 nationalities, 450+ researchers, one shared
+                        mission.</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card card-glass card-glass--hover reveal">
+                        <div class="team-avatar">👩‍🔬</div>
+                        <div class="team-name">Dr. Sarah Chen</div>
+                        <div class="team-role">Chief AI Officer</div>
+                        <div class="team-bio">PhD Stanford AI Lab. Leads all ML drug discovery pipelines and protein
+                            modeling systems.</div>
+                    </div>
+                    <div class="team-card card-glass card-glass--hover reveal reveal-delay-1">
+                        <div class="team-avatar">🧑‍⚕️</div>
+                        <div class="team-name">Dr. Kenji Sato</div>
+                        <div class="team-role">Head of NeuroBio</div>
+                        <div class="team-bio">Former RIKEN Brain Institute. Pioneering brain-computer bioelectrical
+                            interfaces.</div>
+                    </div>
+                    <div class="team-card card-glass card-glass--hover reveal reveal-delay-2">
+                        <div class="team-avatar">👩‍💻</div>
+                        <div class="team-name">Dr. Lena Miller</div>
+                        <div class="team-role">Molecular Systems Lead</div>
+                        <div class="team-bio">Expert in CRISPR delivery mechanisms and cellular repair nanotechnology.
+                        </div>
+                    </div>
+                    <div class="team-card card-glass card-glass--hover reveal reveal-delay-3">
+                        <div class="team-avatar">👨‍🔬</div>
+                        <div class="team-name">Dr. Raj Patel</div>
+                        <div class="team-role">Chief Clinical Officer</div>
+                        <div class="team-bio">25+ years in oncology clinical trials. Oversees all Phase I-III programs
+                            globally.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ETHICS & VALUES -->
+        <section class="section values-section">
+            <div class="container">
+                <div class="section-header reveal" style="text-align:center; margin-bottom:56px;">
+                    <div class="section-tag" style="justify-content:center;"><span class="section-tag-dot"></span>Ethics
+                        & Compliance</div>
+                    <h2 class="section-title">Science with <span>Conscience</span></h2>
+                </div>
+                <div class="ethics-grid">
+                    <div class="ethics-card card-glass card-glass--hover reveal">
+                        <div class="ethics-icon">🛡️</div>
+                        <div class="ethics-title">Bio-Compliance Framework</div>
+                        <div class="ethics-desc">All research adheres to strict international biosafety standards
+                            including ISO 27001 and GCP guidelines. Independent ethics committees review every protocol.
+                        </div>
+                    </div>
+                    <div class="ethics-card card-glass card-glass--hover reveal reveal-delay-1">
+                        <div class="ethics-icon">🤖</div>
+                        <div class="ethics-title">AI Ethics Board</div>
+                        <div class="ethics-desc">Our AI Ethics Board ensures algorithmic fairness, transparent
+                            decision-making, and bias prevention in all AI-driven research and diagnostics.</div>
+                    </div>
+                    <div class="ethics-card card-glass card-glass--hover reveal reveal-delay-2">
+                        <div class="ethics-icon">🌱</div>
+                        <div class="ethics-title">Sustainability Pledge</div>
+                        <div class="ethics-desc">Carbon-neutral laboratories by 2026. All computational research runs on
+                            100% renewable energy. Zero single-use plastics across all facilities.</div>
+                    </div>
+                    <div class="ethics-card card-glass card-glass--hover reveal">
+                        <div class="ethics-icon">🔎</div>
+                        <div class="ethics-title">Open Science Initiative</div>
+                        <div class="ethics-desc">We publish all foundational research openly. 15% of our IP is freely
+                            licensed to academic institutions and developing nation healthcare systems.</div>
+                    </div>
+                    <div class="ethics-card card-glass card-glass--hover reveal reveal-delay-1">
+                        <div class="ethics-icon">🔐</div>
+                        <div class="ethics-title">Patient Data Security</div>
+                        <div class="ethics-desc">Military-grade encryption for all genomic data. GDPR and HIPAA
+                            compliant. Patient-owned data model ensures full control and consent.</div>
+                    </div>
+                    <div class="ethics-card card-glass card-glass--hover reveal reveal-delay-2">
+                        <div class="ethics-icon">🌍</div>
+                        <div class="ethics-title">Global Access Policy</div>
+                        <div class="ethics-desc">Tiered pricing ensures breakthrough therapies reach low-income
+                            countries at cost. Partnerships with WHO and MSF for equitable distribution.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI INTEGRATION PHILOSOPHY -->
+        <section class="section">
+            <div class="container-sm">
+                <div class="section-header reveal" style="text-align:center; margin-bottom: 56px;">
+                    <div class="section-tag" style="justify-content:center;"><span class="section-tag-dot"></span>AI
+                        Philosophy</div>
+                    <h2 class="section-title">Human + <span>Machine</span></h2>
+                    <p class="section-subtitle" style="margin:0 auto;">Our AI does not replace scientists — it amplifies
+                        them. Every AI decision is explainable, auditable, and human-reviewed.</p>
+                </div>
+                <div class="terminal reveal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot"></div>
+                        <div class="terminal-dot"></div>
+                        <div class="terminal-dot"></div>
+                        <span class="terminal-title">NEXORA_AI_PHILOSOPHY.md</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line"><span class="terminal-prompt">$</span><span class="terminal-text">cat
+                                AI_principles.txt</span></div>
+                        <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                class="terminal-text-green">PRINCIPLE 1: Explainability First — all AI models produce
+                                human-readable rationale</span></div>
+                        <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                class="terminal-text">PRINCIPLE 2: Bias Monitoring — continuous fairness audits across
+                                demographics</span></div>
+                        <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                class="terminal-text-green">PRINCIPLE 3: Human Override — any AI finding can be
+                                challenged by any scientist</span></div>
+                        <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                class="terminal-text">PRINCIPLE 4: Open Models — core architectures published quarterly
+                                on arXiv</span></div>
+                        <div class="terminal-line"><span class="terminal-prompt">></span><span
+                                class="terminal-text-green">STATUS: ETHICS BOARD APPROVED Q4-2024 ✓</span><span
+                                class="terminal-cursor"></span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">🧬</div><span>Nexora Bio Systems</span>
+                    </div>
+                    <p class="footer-desc">Engineering the future of human health through advanced molecular research
+                        and AI-powered discovery.</p>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="research.html">Research</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Science</h4>
+                    <ul class="footer-links">
+                        <li><a href="publications.html">Publications</a></li>
+                        <li><a href="technology.html">Technology</a></li>
+                        <li><a href="pipeline.html">Pipeline</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Bio-Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copy">© 2026 Nexora Bio Systems. All rights reserved.</p>
+                <div class="footer-status">
+                    <div class="footer-status-dot"></div>ALL SYSTEMS OPERATIONAL
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="core.js"></script>
+    <script src="about-anim.js"></script>
+</body>
+
+</html>

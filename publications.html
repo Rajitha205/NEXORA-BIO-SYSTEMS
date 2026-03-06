@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Publications Archive | Nexora Bio Systems</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .pub-hero {
+            padding: 160px 0 100px;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            cursor: none;
+            transition: var(--transition);
+            border: 1px solid var(--glass-border);
+            background: var(--glass);
+            color: var(--text-secondary);
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--neon-green);
+            color: var(--black);
+            border-color: var(--neon-green);
+        }
+
+        .search-bar {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 420px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 12px 16px 12px 44px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--neon-border);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        .pub-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .pub-card {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 280px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pub-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .pub-card:hover::before {
+            opacity: 1;
+        }
+
+        .pub-top {
+            margin-bottom: 20px;
+        }
+
+        .pub-icon-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .pub-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: rgba(57, 255, 20, 0.08);
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .pub-year-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 100px;
+            background: rgba(57, 255, 20, 0.08);
+            color: var(--neon-green);
+            border: 1px solid rgba(57, 255, 20, 0.2);
+        }
+
+        .pub-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.4;
+            margin-bottom: 12px;
+            transition: var(--transition);
+        }
+
+        .pub-card:hover .pub-title {
+            color: var(--neon-green);
+        }
+
+        .pub-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .pub-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .pub-meta-icon {
+            color: var(--text-muted);
+        }
+
+        .pub-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 20px;
+        }
+
+        .pub-authors {
+            display: flex;
+            align-items: center;
+            gap: -8px;
+        }
+
+        .pub-author-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.2), rgba(0, 240, 255, 0.2));
+            border: 2px solid var(--black-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-left: -6px;
+        }
+
+        .pub-author-avatar:first-child {
+            margin-left: 0;
+        }
+
+        .pub-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            transition: var(--transition);
+            cursor: none;
+        }
+
+        .pub-download--primary {
+            background: var(--neon-green);
+            color: var(--black);
+        }
+
+        .pub-download--secondary {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+        }
+
+        .pub-download--primary:hover {
+            box-shadow: var(--glow-green);
+            transform: scale(1.02);
+        }
+
+        .pub-download--secondary:hover {
+            border-color: var(--neon-border);
+            color: var(--neon-green);
+        }
+
+        @media (max-width: 768px) {
+            .pub-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <canvas id="particles-canvas"></canvas>
+    <div class="bg-grid"></div>
+    <div class="bg-orbs">
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+    </div>
+    <nav class="nav" id="nav">
+        <div class="nav-logo">
+            <div class="nav-logo-icon">🧬</div><span>Nexora<span> Bio</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="pipeline.html">Pipeline</a></li>
+            <li><a href="publications.html" class="active">Publications</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="careers.html">Careers</a></li>
+        </ul>
+        <div class="nav-cta"><a href="contact.html" class="btn-nav">Enter the Lab</a></div>
+        <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a><a href="research.html">Research</a><a href="technology.html">Technology</a>
+        <a href="pipeline.html">Pipeline</a><a href="publications.html">Publications</a>
+        <a href="about.html">About</a><a href="careers.html">Careers</a>
+        <a href="contact.html" class="btn btn-primary">Enter the Lab</a>
+    </div>
+    <main class="page-wrapper">
+        <section class="pub-hero section">
+            <div class="container">
+                <div class="section-tag reveal"><span class="section-tag-dot"></span>Publications Archive</div>
+                <h1 class="section-title reveal">Scientific <span>Publications</span></h1>
+                <p class="section-subtitle reveal">Peer-reviewed research at the frontier of AI-driven biotechnology,
+                    protein engineering, and molecular medicine.</p>
+                <div class="search-bar reveal" style="margin-top:32px;">
+                    <span class="search-icon">🔍</span>
+                    <input class="search-input" id="pubSearch" type="text"
+                        placeholder="Search research papers, authors, journals..." />
+                </div>
+                <div class="filter-bar reveal">
+                    <button class="filter-btn active" data-filter="all">All Research</button>
+                    <button class="filter-btn" data-filter="oncology">Oncology</button>
+                    <button class="filter-btn" data-filter="protein">Protein Folding</button>
+                    <button class="filter-btn" data-filter="ml">Machine Learning</button>
+                    <button class="filter-btn" data-filter="crispr">CRISPR</button>
+                    <button class="filter-btn" data-filter="neuro">Neuroscience</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="padding-top:0;">
+            <div class="container">
+                <div class="pub-grid" id="pubGrid">
+                    <div class="pub-card card-glass card-glass--hover reveal" data-category="protein oncology">
+                        <div class="pub-top">
+                            <div class="pub-icon-row">
+                                <div class="pub-icon">🧬</div>
+                                <span class="pub-year-badge">2025 — New</span>
+                            </div>
+                            <h3 class="pub-title">AI-Driven Protein Folding in Oncology Applications</h3>
+                            <div class="pub-meta">
+                                <div class="pub-meta-row"><span class="pub-meta-icon">👥</span><span>Dr. Aris Thorne,
+                                        Sarah Chen, et al.</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">📄</span><span>Nature
+                                        Biotechnology, Vol. 43, 2025</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">🔗</span><span>DOI:
+                                        10.1038/nbt.2025.441</span></div>
+                            </div>
+                        </div>
+                        <div class="pub-bottom">
+                            <div class="pub-authors">
+                                <div class="pub-author-avatar">🧑‍🔬</div>
+                                <div class="pub-author-avatar">👩‍💻</div>
+                                <div class="pub-author-avatar">👨‍⚕️</div>
+                            </div>
+                            <a href="#" class="pub-download pub-download--primary">Download PDF ↓</a>
+                        </div>
+                    </div>
+
+                    <div class="pub-card card-glass card-glass--hover reveal reveal-delay-1" data-category="ml neuro">
+                        <div class="pub-top">
+                            <div class="pub-icon-row">
+                                <div class="pub-icon">🧠</div>
+                                <span class="pub-year-badge">2024</span>
+                            </div>
+                            <h3 class="pub-title">Neural Architectures for Rapid Molecular Simulation</h3>
+                            <div class="pub-meta">
+                                <div class="pub-meta-row"><span class="pub-meta-icon">👥</span><span>Nexora Research
+                                        Team</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">📄</span><span>Bioinformatics
+                                        Journal, Vol. 40, 2024</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">🔗</span><span>DOI:
+                                        10.1093/bioinformatics/2024.218</span></div>
+                            </div>
+                        </div>
+                        <div class="pub-bottom">
+                            <div class="pub-authors">
+                                <div class="pub-author-avatar">👩‍🔬</div>
+                            </div>
+                            <a href="#" class="pub-download pub-download--secondary">Download PDF ↓</a>
+                        </div>
+                    </div>
+
+                    <div class="pub-card card-glass card-glass--hover reveal" data-category="protein crispr">
+                        <div class="pub-top">
+                            <div class="pub-icon-row">
+                                <div class="pub-icon">🔬</div>
+                                <span class="pub-year-badge">2024</span>
+                            </div>
+                            <h3 class="pub-title">Deep Generative Models for De Novo Enzyme Design</h3>
+                            <div class="pub-meta">
+                                <div class="pub-meta-row"><span class="pub-meta-icon">👥</span><span>L. Miller, K. Sato,
+                                        R. Thorne</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">📄</span><span>Journal of
+                                        Computational Biology, 2024</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">🔗</span><span>DOI:
+                                        10.1089/cmb.2024.0127</span></div>
+                            </div>
+                        </div>
+                        <div class="pub-bottom">
+                            <div class="pub-authors">
+                                <div class="pub-author-avatar">👩‍💻</div>
+                                <div class="pub-author-avatar">👨‍🔬</div>
+                            </div>
+                            <a href="#" class="pub-download pub-download--secondary">Download PDF ↓</a>
+                        </div>
+                    </div>
+
+                    <div class="pub-card card-glass card-glass--hover reveal reveal-delay-1" data-category="ml">
+                        <div class="pub-top">
+                            <div class="pub-icon-row">
+                                <div class="pub-icon">🤖</div>
+                                <span class="pub-year-badge">2023</span>
+                            </div>
+                            <h3 class="pub-title">Transformer Architectures in Genomic Sequence Prediction</h3>
+                            <div class="pub-meta">
+                                <div class="pub-meta-row"><span class="pub-meta-icon">👥</span><span>Nexora Bio Systems
+                                        Data Team</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">📄</span><span>AI in Medicine
+                                        Monthly, Vol. 8, 2023</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">🔗</span><span>DOI:
+                                        10.1016/j.aiim.2023.1041</span></div>
+                            </div>
+                        </div>
+                        <div class="pub-bottom">
+                            <div class="pub-authors">
+                                <div class="pub-author-avatar">👨‍💻</div>
+                            </div>
+                            <a href="#" class="pub-download pub-download--secondary">Download PDF ↓</a>
+                        </div>
+                    </div>
+
+                    <div class="pub-card card-glass card-glass--hover reveal" data-category="crispr oncology">
+                        <div class="pub-top">
+                            <div class="pub-icon-row">
+                                <div class="pub-icon">✂️</div>
+                                <span class="pub-year-badge">2025</span>
+                            </div>
+                            <h3 class="pub-title">CRISPR-X: Next-Gen Base Editing for Hematological Malignancies</h3>
+                            <div class="pub-meta">
+                                <div class="pub-meta-row"><span class="pub-meta-icon">👥</span><span>Dr. Lena Miller,
+                                        Dr. Aris Thorne et al.</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">📄</span><span>Nature Medicine,
+                                        Vol. 31, 2025</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">🔗</span><span>DOI:
+                                        10.1038/s41591-025-3124-7</span></div>
+                            </div>
+                        </div>
+                        <div class="pub-bottom">
+                            <div class="pub-authors">
+                                <div class="pub-author-avatar">👩‍🔬</div>
+                                <div class="pub-author-avatar">🧑‍🔬</div>
+                                <div class="pub-author-avatar">👨‍⚕️</div>
+                            </div>
+                            <a href="#" class="pub-download pub-download--primary">Download PDF ↓</a>
+                        </div>
+                    </div>
+
+                    <div class="pub-card card-glass card-glass--hover reveal reveal-delay-1"
+                        data-category="neuro protein">
+                        <div class="pub-top">
+                            <div class="pub-icon-row">
+                                <div class="pub-icon">⚡</div>
+                                <span class="pub-year-badge">2024</span>
+                            </div>
+                            <h3 class="pub-title">Bioelectrical Interface Design for Neural Signal Translation</h3>
+                            <div class="pub-meta">
+                                <div class="pub-meta-row"><span class="pub-meta-icon">👥</span><span>Dr. Kenji Sato et
+                                        al.</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">📄</span><span>Science
+                                        Translational Medicine, 2024</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">🔗</span><span>DOI:
+                                        10.1126/scitranslmed.abc9841</span></div>
+                            </div>
+                        </div>
+                        <div class="pub-bottom">
+                            <div class="pub-authors">
+                                <div class="pub-author-avatar">👨‍🔬</div>
+                            </div>
+                            <a href="#" class="pub-download pub-download--secondary">Download PDF ↓</a>
+                        </div>
+                    </div>
+
+                    <div class="pub-card card-glass card-glass--hover reveal" data-category="protein ml">
+                        <div class="pub-top">
+                            <div class="pub-icon-row">
+                                <div class="pub-icon">🧬</div>
+                                <span class="pub-year-badge">2023</span>
+                            </div>
+                            <h3 class="pub-title">AlphaFold vs BioCore-X: A Comparative Evaluation</h3>
+                            <div class="pub-meta">
+                                <div class="pub-meta-row"><span class="pub-meta-icon">👥</span><span>J. Chen, M. Tanaka,
+                                        et al.</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">📄</span><span>Cell, Vol. 186,
+                                        2023</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">🔗</span><span>DOI:
+                                        10.1016/j.cell.2023.01.022</span></div>
+                            </div>
+                        </div>
+                        <div class="pub-bottom">
+                            <div class="pub-authors">
+                                <div class="pub-author-avatar">👨‍🔬</div>
+                                <div class="pub-author-avatar">🧑‍🔬</div>
+                            </div>
+                            <a href="#" class="pub-download pub-download--secondary">Download PDF ↓</a>
+                        </div>
+                    </div>
+
+                    <div class="pub-card card-glass card-glass--hover reveal reveal-delay-1"
+                        data-category="clinical oncology">
+                        <div class="pub-top">
+                            <div class="pub-icon-row">
+                                <div class="pub-icon">🏥</div>
+                                <span class="pub-year-badge">2022</span>
+                            </div>
+                            <h3 class="pub-title">Phase I Outcomes for AI-Designed ALK Inhibitor</h3>
+                            <div class="pub-meta">
+                                <div class="pub-meta-row"><span class="pub-meta-icon">👥</span><span>Nexora Clinical
+                                        Team</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">📄</span><span>The Lancet
+                                        Oncology, 2022</span></div>
+                                <div class="pub-meta-row"><span class="pub-meta-icon">🔗</span><span>DOI:
+                                        10.1016/S1470-2045(22)00456-7</span></div>
+                            </div>
+                        </div>
+                        <div class="pub-bottom">
+                            <div class="pub-authors">
+                                <div class="pub-author-avatar">👩‍⚕️</div>
+                                <div class="pub-author-avatar">👨‍⚕️</div>
+                            </div>
+                            <a href="#" class="pub-download pub-download--secondary">Download PDF ↓</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">🧬</div><span>Nexora Bio Systems</span>
+                    </div>
+                    <p class="footer-desc">Engineering the future of human health.</p>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="research.html">Research</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Science</h4>
+                    <ul class="footer-links">
+                        <li><a href="technology.html">Technology</a></li>
+                        <li><a href="pipeline.html">Pipeline</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Get in Touch</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copy">© 2026 Nexora Bio Systems. All rights reserved.</p>
+                <div class="footer-status">
+                    <div class="footer-status-dot"></div>ALL SYSTEMS OPERATIONAL
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="core.js"></script>
+    <script>
+        // Filter Publications
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const pubCards = document.querySelectorAll('.pub-card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                pubCards.forEach(card => {
+                    const cats = card.dataset.category || '';
+                    card.style.display = (filter === 'all' || cats.includes(filter)) ? '' : 'none';
+                });
+            });
+        });
+        // Search
+        document.getElementById('pubSearch').addEventListener('input', e => {
+            const q = e.target.value.toLowerCase();
+            pubCards.forEach(card => {
+                card.style.display = card.textContent.toLowerCase().includes(q) ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+
+</html>

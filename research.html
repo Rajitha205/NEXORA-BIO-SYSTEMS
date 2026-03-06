@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Research — Technical Depth | Nexora Bio Systems</title>
+    <meta name="description"
+        content="Explore Nexora's cutting-edge research across oncology, neurodegenerative disorders, rare genetic diseases, and AI molecular biology." />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .research-hero {
+            padding: 160px 0 100px;
+        }
+
+        .domains-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .domain-card {
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .domain-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--neon-green), transparent);
+        }
+
+        .domain-accent--cyan {
+            background: linear-gradient(180deg, var(--cyan), transparent);
+        }
+
+        .domain-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: rgba(57, 255, 20, 0.06);
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            line-height: 1;
+        }
+
+        .domain-icon {
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+        }
+
+        .domain-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .domain-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .domain-projects {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .domain-projects li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .domain-projects li::before {
+            content: '→';
+            color: var(--neon-green);
+            flex-shrink: 0;
+        }
+
+        .domain-stage {
+            margin-top: 28px;
+        }
+
+        .domain-stage-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .ai-section-bg {
+            background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(0, 240, 255, 0.04), transparent);
+        }
+
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 56px;
+        }
+
+        .ai-card {
+            padding: 36px;
+            text-align: center;
+        }
+
+        .ai-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .ai-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .ai-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 60px 0;
+        }
+
+        .metric-card {
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .metric-num {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        @media (max-width: 900px) {
+
+            .domains-grid,
+            .metrics-row {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .ai-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <canvas id="particles-canvas"></canvas>
+    <div class="bg-grid"></div>
+    <div class="bg-orbs">
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+    </div>
+
+    <nav class="nav" id="nav">
+        <div class="nav-logo">
+            <div class="nav-logo-icon">🧬</div><span>Nexora<span> Bio</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html" class="active">Research</a></li>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="pipeline.html">Pipeline</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="careers.html">Careers</a></li>
+        </ul>
+        <div class="nav-cta"><a href="contact.html" class="btn-nav">Enter the Lab</a></div>
+        <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a><a href="research.html">Research</a><a href="technology.html">Technology</a>
+        <a href="pipeline.html">Pipeline</a><a href="publications.html">Publications</a>
+        <a href="about.html">About</a><a href="careers.html">Careers</a>
+        <a href="contact.html" class="btn btn-primary">Enter the Lab</a>
+    </div>
+
+    <main class="page-wrapper">
+        <section class="research-hero section">
+            <div class="container">
+                <div class="section-tag reveal"><span class="section-tag-dot"></span>Research Division</div>
+                <h1 class="section-title reveal" style="max-width:800px;">Technical <span>Depth</span> — Pushing Every
+                    Boundary</h1>
+                <p class="section-subtitle reveal">Four research domains. One mission: eliminate suffering through
+                    molecular precision and artificial intelligence.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="metrics-row">
+                    <div class="metric-card card-glass reveal">
+                        <div class="metric-num" data-count="1200">0</div>
+                        <div class="metric-label">Papers Published</div>
+                    </div>
+                    <div class="metric-card card-glass reveal reveal-delay-1">
+                        <div class="metric-num" data-count="85">0</div>
+                        <div class="metric-label">Active Trials</div>
+                    </div>
+                    <div class="metric-card card-glass reveal reveal-delay-2">
+                        <div class="metric-num" data-count="14">0</div>
+                        <div class="metric-label">Drug Candidates</div>
+                    </div>
+                    <div class="metric-card card-glass reveal reveal-delay-3">
+                        <div class="metric-num" data-count="98">0</div>
+                        <div class="metric-label">AI Accuracy %</div>
+                    </div>
+                </div>
+
+                <div class="section-header reveal" style="margin-bottom:56px;">
+                    <div class="section-tag"><span class="section-tag-dot"></span>Research Domains</div>
+                    <h2 class="section-title">Four Pillars of <span>Discovery</span></h2>
+                </div>
+
+                <div class="domains-grid">
+                    <div class="domain-card card-glass card-glass--hover reveal" id="oncology">
+                        <div class="domain-accent"></div>
+                        <div class="domain-number">01</div>
+                        <div class="domain-icon">🔬</div>
+                        <h3 class="domain-title">Oncology</h3>
+                        <p class="domain-desc">Targeting tumor biology at the molecular level using AI-predicted
+                            compound interactions and immune system modulation therapies.</p>
+                        <ul class="domain-projects">
+                            <li>NX-101: Lung cancer KRAS inhibitor — Phase III</li>
+                            <li>NX-204: Triple-negative breast cancer T-cell therapy</li>
+                            <li>NX-315: AI-designed pan-cancer proteolysis targeting chimera (PROTAC)</li>
+                            <li>Tumor micro-environment reprogramming via synthetic biology</li>
+                        </ul>
+                        <div class="domain-stage">
+                            <div class="domain-stage-label">Research Maturity</div>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div style="margin-top:20px;"><span class="badge badge-green">Most Advanced</span><span
+                                class="badge badge-cyan" style="margin-left:8px;">8 Compounds</span></div>
+                    </div>
+
+                    <div class="domain-card card-glass card-glass--hover reveal reveal-delay-1" id="neurobio">
+                        <div class="domain-accent domain-accent--cyan"></div>
+                        <div class="domain-number">02</div>
+                        <div class="domain-icon">🧠</div>
+                        <h3 class="domain-title">Neurodegenerative Disorders</h3>
+                        <p class="domain-desc">Combating Alzheimer's, Parkinson's, and ALS through synaptic protein
+                            modeling, neural circuit simulation, and bioelectrical therapies.</p>
+                        <ul class="domain-projects">
+                            <li>NX-501: Alpha-synuclein aggregation inhibitor for Parkinson's</li>
+                            <li>NX-602: Tau protein misfolding prevention — Alzheimer's</li>
+                            <li>NX-700: ALS motor neuron protection via viral gene therapy</li>
+                            <li>Brain organoid models for drug screening</li>
+                        </ul>
+                        <div class="domain-stage">
+                            <div class="domain-stage-label">Research Maturity</div>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="background:var(--cyan);" data-width="68"></div>
+                            </div>
+                        </div>
+                        <div style="margin-top:20px;"><span class="badge badge-cyan">Phase II</span><span
+                                class="badge badge-yellow" style="margin-left:8px;">3 Compounds</span></div>
+                    </div>
+
+                    <div class="domain-card card-glass card-glass--hover reveal" id="nanocell">
+                        <div class="domain-accent"></div>
+                        <div class="domain-number">03</div>
+                        <div class="domain-icon">⚗️</div>
+                        <h3 class="domain-title">Rare Genetic Diseases</h3>
+                        <p class="domain-desc">CRISPR-based precision editing for monogenic diseases with ultra-rare
+                            phenotypes, offering curative potential for previously untreatable conditions.</p>
+                        <ul class="domain-projects">
+                            <li>NX-801: Sickle cell disease single base correction</li>
+                            <li>NX-850: Huntington's disease gene silencing via RNAi</li>
+                            <li>NX-900: Spinal muscular atrophy AAV gene therapy</li>
+                            <li>Newborn screening integration via AI genomics</li>
+                        </ul>
+                        <div class="domain-stage">
+                            <div class="domain-stage-label">Research Maturity</div>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" data-width="72"></div>
+                            </div>
+                        </div>
+                        <div style="margin-top:20px;"><span class="badge badge-green">CRISPR-X</span><span
+                                class="badge badge-purple" style="margin-left:8px;">Phase I</span></div>
+                    </div>
+
+                    <div class="domain-card card-glass card-glass--hover reveal reveal-delay-1" id="bioai">
+                        <div class="domain-accent domain-accent--cyan"></div>
+                        <div class="domain-number">04</div>
+                        <div class="domain-icon">🤖</div>
+                        <h3 class="domain-title">Immunotherapy</h3>
+                        <p class="domain-desc">Engineering next-generation immune cells using AI-powered antigen
+                            profiling, personalized CAR-T design, and checkpoint inhibitor optimization.</p>
+                        <ul class="domain-projects">
+                            <li>Universal CAR-T cell therapy — allogeneic platform</li>
+                            <li>Bispecific antibody engineering via ML protein prediction</li>
+                            <li>Tumor neoantigen vaccine using proprietary genomic AI</li>
+                            <li>Microbiome-immune axis modulation research</li>
+                        </ul>
+                        <div class="domain-stage">
+                            <div class="domain-stage-label">Research Maturity</div>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="background:var(--cyan);" data-width="79"></div>
+                            </div>
+                        </div>
+                        <div style="margin-top:20px;"><span class="badge badge-cyan">CAR-T</span><span
+                                class="badge badge-green" style="margin-left:8px;">4 Candidates</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section ai-section-bg">
+            <div class="container">
+                <div class="section-header reveal" style="text-align:center; margin-bottom:56px;">
+                    <div class="section-tag" style="justify-content:center;"><span class="section-tag-dot"></span>AI
+                        Research</div>
+                    <h2 class="section-title">The Intelligence <span>Layer</span></h2>
+                    <p class="section-subtitle" style="margin:0 auto;">Three AI platforms working in concert to compress
+                        the drug discovery timeline.</p>
+                </div>
+                <div class="ai-grid">
+                    <div class="ai-card card-glass card-glass--hover-rotate reveal">
+                        <div class="ai-icon">🧩</div>
+                        <div class="ai-title">Predictive Protein Modeling</div>
+                        <div class="ai-desc">AlphaFold-integrated proprietary engine generates 3D protein structures in
+                            seconds. Predicts binding affinity with 98.7% accuracy vs. experimental data.</div>
+                        <div style="margin-top:20px;"><span class="badge badge-green">BioCore-X v3</span></div>
+                    </div>
+                    <div class="ai-card card-glass card-glass--hover-rotate reveal reveal-delay-1">
+                        <div class="ai-icon">🔍</div>
+                        <div class="ai-title">Genomic Anomaly Detection</div>
+                        <div class="ai-desc">Deep learning scans whole-genome sequencing data to identify pathogenic
+                            variants, structural rearrangements, and epigenetic markers across 2M+ variants
+                            simultaneously.</div>
+                        <div style="margin-top:20px;"><span class="badge badge-cyan">GenScan AI</span></div>
+                    </div>
+                    <div class="ai-card card-glass card-glass--hover-rotate reveal reveal-delay-2">
+                        <div class="ai-icon">⚡</div>
+                        <div class="ai-title">Molecular Simulation Engine</div>
+                        <div class="ai-desc">Physics-informed neural networks simulate molecular dynamics at 10,000×
+                            real-time speed. Replaces 18-month wet lab validation cycles with 2-week computational runs.
+                        </div>
+                        <div style="margin-top:20px;"><span class="badge badge-green">MolSim-7</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GLOBAL LABS -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header reveal" style="text-align:center; margin-bottom:56px;">
+                    <div class="section-tag" style="justify-content:center;"><span class="section-tag-dot"></span>Global
+                        Presence</div>
+                    <h2 class="section-title">Our <span>Laboratories</span></h2>
+                    <p class="section-subtitle" style="margin:0 auto;">24 cities. 450+ researchers. One mission —
+                        operating 24/7 across every time zone.</p>
+                </div>
+                <div class="global-labs-grid">
+                    <div class="card-glass card-glass--hover reveal" style="padding:32px;">
+                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
+                            <span style="font-size:2rem;">🌉</span>
+                            <div>
+                                <div
+                                    style="font-family:'Orbitron',sans-serif; font-size:0.85rem; font-weight:700; color:var(--neon-green);">
+                                    San Francisco, USA</div>
+                                <div style="font-size:0.72rem; color:var(--text-muted);">Global Headquarters — West
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:16px;">
+                            AI &amp; Computational Biology division, Oncology Drug Discovery lab, and US Clinical
+                            Operations center. 140 researchers.</div>
+                        <div style="display:flex; gap:8px; flex-wrap:wrap;"><span
+                                class="badge badge-green">AI/ML</span><span class="badge badge-cyan">Oncology</span>
+                        </div>
+                    </div>
+                    <div class="card-glass card-glass--hover reveal reveal-delay-1" style="padding:32px;">
+                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
+                            <span style="font-size:2rem;">🏔️</span>
+                            <div>
+                                <div
+                                    style="font-family:'Orbitron',sans-serif; font-size:0.85rem; font-weight:700; color:var(--cyan);">
+                                    Zurich, Switzerland</div>
+                                <div style="font-size:0.72rem; color:var(--text-muted);">Nexora Founding HQ</div>
+                            </div>
+                        </div>
+                        <div
+                            style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:16px;">
+                            Rare Genetic Disease program, CRISPR-X development lab, and EU Regulatory Affairs. 98
+                            researchers.</div>
+                        <div style="display:flex; gap:8px; flex-wrap:wrap;"><span
+                                class="badge badge-green">CRISPR</span><span class="badge badge-cyan">Regulatory</span>
+                        </div>
+                    </div>
+                    <div class="card-glass card-glass--hover reveal reveal-delay-2" style="padding:32px;">
+                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
+                            <span style="font-size:2rem;">🗼</span>
+                            <div>
+                                <div
+                                    style="font-family:'Orbitron',sans-serif; font-size:0.85rem; font-weight:700; color:var(--neon-green);">
+                                    Tokyo, Japan</div>
+                                <div style="font-size:0.72rem; color:var(--text-muted);">Asia-Pacific Research Hub</div>
+                            </div>
+                        </div>
+                        <div
+                            style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:16px;">
+                            NeuroBio research division, bioelectrical interface development, and Asia clinical trial
+                            operations. 112 researchers.</div>
+                        <div style="display:flex; gap:8px; flex-wrap:wrap;"><span
+                                class="badge badge-green">NeuroBio</span><span class="badge badge-cyan">Trials</span>
+                        </div>
+                    </div>
+                    <div class="card-glass card-glass--hover reveal" style="padding:32px;">
+                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
+                            <span style="font-size:2rem;">🦁</span>
+                            <div>
+                                <div
+                                    style="font-family:'Orbitron',sans-serif; font-size:0.85rem; font-weight:700; color:var(--cyan);">
+                                    Singapore</div>
+                                <div style="font-size:0.72rem; color:var(--text-muted);">South-East Asia Hub</div>
+                            </div>
+                        </div>
+                        <div
+                            style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:16px;">
+                            Immunotherapy and CAR-T manufacturing scale-up facility, plus ASEAN regulatory and clinical
+                            partnerships. 62 researchers.</div>
+                        <div style="display:flex; gap:8px; flex-wrap:wrap;"><span
+                                class="badge badge-green">Immunotherapy</span><span
+                                class="badge badge-cyan">CAR-T</span></div>
+                    </div>
+                    <div class="card-glass card-glass--hover reveal reveal-delay-1" style="padding:32px;">
+                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
+                            <span style="font-size:2rem;">🕌</span>
+                            <div>
+                                <div
+                                    style="font-family:'Orbitron',sans-serif; font-size:0.85rem; font-weight:700; color:var(--neon-green);">
+                                    Mumbai, India</div>
+                                <div style="font-size:0.72rem; color:var(--text-muted);">South Asia Research Center
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:16px;">
+                            Large-scale genomics and bioinformatics processing center. Supports WHO Global Access
+                            Initiative with affordable diagnostics R&D. 88 researchers.</div>
+                        <div style="display:flex; gap:8px; flex-wrap:wrap;"><span
+                                class="badge badge-green">Genomics</span><span class="badge badge-cyan">Access</span>
+                        </div>
+                    </div>
+                    <div class="card-glass card-glass--hover reveal reveal-delay-2" style="padding:32px;">
+                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
+                            <span style="font-size:2rem;">🗽</span>
+                            <div>
+                                <div
+                                    style="font-family:'Orbitron',sans-serif; font-size:0.85rem; font-weight:700; color:var(--cyan);">
+                                    New York, USA</div>
+                                <div style="font-size:0.72rem; color:var(--text-muted);">Clinical & Data Science Hub
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:16px;">
+                            Clinical data science, Phase II–III trial management, and partnership development with US
+                            hospital networks. 68 researchers.</div>
+                        <div style="display:flex; gap:8px; flex-wrap:wrap;"><span
+                                class="badge badge-green">Clinical</span><span class="badge badge-cyan">Data
+                                Science</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESEARCH FAQ -->
+        <section class="section"
+            style="background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(57,255,20,0.02), transparent);">
+            <div class="container-sm">
+                <div class="section-header reveal" style="text-align:center; margin-bottom:56px;">
+                    <div class="section-tag" style="justify-content:center;"><span
+                            class="section-tag-dot"></span>Science Questions</div>
+                    <h2 class="section-title">Research <span>FAQ</span></h2>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:16px;" id="faqList">
+                    <div class="card-glass faq-item reveal" style="border-radius:var(--radius); overflow:hidden;">
+                        <button onclick="toggleFAQ(this)"
+                            style="width:100%; padding:24px 28px; text-align:left; background:none; border:none; display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+                            <span style="font-size:0.95rem; font-weight:700; color:var(--text-primary);">How does
+                                BioCore-X differ from AlphaFold?</span>
+                            <span class="faq-chevron"
+                                style="color:var(--neon-green); font-size:1.2rem; transition:transform 0.3s; flex-shrink:0;">▾</span>
+                        </button>
+                        <div class="faq-body"
+                            style="max-height:0; overflow:hidden; transition:max-height 0.4s ease; padding:0 28px;">
+                            <p
+                                style="font-size:0.88rem; color:var(--text-secondary); line-height:1.8; padding-bottom:24px;">
+                                AlphaFold focuses on single-protein structure prediction from sequence. BioCore-X
+                                extends this by modeling protein-protein interactions, protein-small molecule docking,
+                                dynamic conformational changes, and integrates multi-omic context (genomic,
+                                transcriptomic, proteomic) into a unified molecular state model. It is purpose-built for
+                                drug discovery, not structural biology alone.</p>
+                        </div>
+                    </div>
+                    <div class="card-glass faq-item reveal" style="border-radius:var(--radius); overflow:hidden;">
+                        <button onclick="toggleFAQ(this)"
+                            style="width:100%; padding:24px 28px; text-align:left; background:none; border:none; display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+                            <span style="font-size:0.95rem; font-weight:700; color:var(--text-primary);">Can academic
+                                institutions apply to collaborate?</span>
+                            <span class="faq-chevron"
+                                style="color:var(--neon-green); font-size:1.2rem; transition:transform 0.3s; flex-shrink:0;">▾</span>
+                        </button>
+                        <div class="faq-body"
+                            style="max-height:0; overflow:hidden; transition:max-height 0.4s ease; padding:0 28px;">
+                            <p
+                                style="font-size:0.88rem; color:var(--text-secondary); line-height:1.8; padding-bottom:24px;">
+                                Yes. We maintain an Open Science Initiative that provides academic access to our GenScan
+                                AI and MolSim-7 platforms. We also offer collaborative research grants worth up to
+                                €500,000 annually. Applications open each January — contact research@nexorabio.com for
+                                details.</p>
+                        </div>
+                    </div>
+                    <div class="card-glass faq-item reveal" style="border-radius:var(--radius); overflow:hidden;">
+                        <button onclick="toggleFAQ(this)"
+                            style="width:100%; padding:24px 28px; text-align:left; background:none; border:none; display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+                            <span style="font-size:0.95rem; font-weight:700; color:var(--text-primary);">How are AI
+                                predictions validated before clinical entry?</span>
+                            <span class="faq-chevron"
+                                style="color:var(--neon-green); font-size:1.2rem; transition:transform 0.3s; flex-shrink:0;">▾</span>
+                        </button>
+                        <div class="faq-body"
+                            style="max-height:0; overflow:hidden; transition:max-height 0.4s ease; padding:0 28px;">
+                            <p
+                                style="font-size:0.88rem; color:var(--text-secondary); line-height:1.8; padding-bottom:24px;">
+                                Every AI-predicted compound undergoes a mandatory 3-stage wet lab validation gate: (1)
+                                in vitro biochemical assay, (2) cellular efficacy panel across 10+ disease-relevant cell
+                                lines, and (3) in vivo xenograft or genetic model studies. Only compounds passing all
+                                three gates with pre-defined success criteria proceed to IND-enabling studies.</p>
+                        </div>
+                    </div>
+                    <div class="card-glass faq-item reveal" style="border-radius:var(--radius); overflow:hidden;">
+                        <button onclick="toggleFAQ(this)"
+                            style="width:100%; padding:24px 28px; text-align:left; background:none; border:none; display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+                            <span style="font-size:0.95rem; font-weight:700; color:var(--text-primary);">What is your
+                                policy on research data ownership?</span>
+                            <span class="faq-chevron"
+                                style="color:var(--neon-green); font-size:1.2rem; transition:transform 0.3s; flex-shrink:0;">▾</span>
+                        </button>
+                        <div class="faq-body"
+                            style="max-height:0; overflow:hidden; transition:max-height 0.4s ease; padding:0 28px;">
+                            <p
+                                style="font-size:0.88rem; color:var(--text-secondary); line-height:1.8; padding-bottom:24px;">
+                                Patient genomic data follows a patient-ownership model — patients retain full rights and
+                                can withdraw consent at any time. Nexora retains de-identified analytical results and
+                                model weights. All datasets obey GDPR, HIPAA, and country-specific biobank regulations.
+                                We never sell data to third parties.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            function toggleFAQ(btn) {
+                const body = btn.nextElementSibling;
+                const chevron = btn.querySelector('.faq-chevron');
+                const isOpen = body.style.maxHeight !== '0px' && body.style.maxHeight !== '';
+                // Close all
+                document.querySelectorAll('.faq-body').forEach(b => b.style.maxHeight = '0px');
+                document.querySelectorAll('.faq-chevron').forEach(c => c.style.transform = '');
+                if (!isOpen) {
+                    body.style.maxHeight = body.scrollHeight + 'px';
+                    chevron.style.transform = 'rotate(180deg)';
+                }
+            }
+        </script>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">🧬</div><span>Nexora Bio Systems</span>
+                    </div>
+                    <p class="footer-desc">Engineering the future of human health.</p>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Domains</h4>
+                    <ul class="footer-links">
+                        <li><a href="#oncology">Oncology</a></li>
+                        <li><a href="#neurobio">NeuroBio</a></li>
+                        <li><a href="#nanocell">Rare Diseases</a></li>
+                        <li><a href="#bioai">Immunotherapy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Science</h4>
+                    <ul class="footer-links">
+                        <li><a href="publications.html">Publications</a></li>
+                        <li><a href="technology.html">Technology</a></li>
+                        <li><a href="pipeline.html">Pipeline</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copy">© 2026 Nexora Bio Systems. All rights reserved.</p>
+                <div class="footer-status">
+                    <div class="footer-status-dot"></div>ALL SYSTEMS OPERATIONAL
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="core.js"></script>
+</body>
+
+</html>

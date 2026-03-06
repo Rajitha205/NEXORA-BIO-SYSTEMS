@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Careers — Join the Future | Nexora Bio Systems</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .careers-hero {
+            padding: 160px 0 100px;
+        }
+
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .culture-card {
+            padding: 36px;
+            text-align: center;
+        }
+
+        .culture-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .culture-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .culture-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .jobs-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .job-card {
+            padding: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            transition: var(--transition);
+        }
+
+        .job-card:hover {
+            border-color: var(--neon-border);
+            transform: translateX(4px);
+        }
+
+        .job-info {
+            flex: 1;
+        }
+
+        .job-dept {
+            font-size: 0.65rem;
+            color: var(--neon-green);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 8px;
+        }
+
+        .job-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .job-title:hover {
+            color: var(--neon-green);
+        }
+
+        .job-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .job-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 600px;
+        }
+
+        .job-actions {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .job-meta {
+            text-align: right;
+        }
+
+        .job-meta-item {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .benefit-card {
+            padding: 28px;
+            text-align: center;
+        }
+
+        .benefit-icon {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .benefit-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .benefit-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 900px) {
+            .culture-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .job-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .job-actions {
+                align-items: flex-start;
+                flex-direction: row;
+            }
+
+            .job-meta {
+                text-align: left;
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .culture-grid,
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <canvas id="particles-canvas"></canvas>
+    <div class="bg-grid"></div>
+    <div class="bg-orbs">
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+    </div>
+    <nav class="nav" id="nav">
+        <div class="nav-logo">
+            <div class="nav-logo-icon">🧬</div><span>Nexora<span> Bio</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="pipeline.html">Pipeline</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="careers.html" class="active">Careers</a></li>
+        </ul>
+        <div class="nav-cta"><a href="contact.html" class="btn-nav">Enter the Lab</a></div>
+        <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a><a href="research.html">Research</a><a href="technology.html">Technology</a>
+        <a href="pipeline.html">Pipeline</a><a href="publications.html">Publications</a>
+        <a href="about.html">About</a><a href="careers.html">Careers</a>
+        <a href="contact.html" class="btn btn-primary">Enter the Lab</a>
+    </div>
+    <main class="page-wrapper">
+        <section class="careers-hero section">
+            <div class="container">
+                <div class="section-tag reveal"><span class="section-tag-dot"></span>Join the Future</div>
+                <h1 class="section-title reveal" style="max-width:800px;">Build the Future of <span>Human Health</span>
+                </h1>
+                <p class="section-subtitle reveal">We are seeking brilliant minds across biology, AI, engineering, and
+                    medicine. Join 450+ researchers changing humanity's relationship with disease.</p>
+                <div style="display:flex; gap:16px; margin-top:32px; flex-wrap:wrap;" class="reveal">
+                    <a href="#jobs" class="btn btn-primary">View Open Positions →</a>
+                    <a href="contact.html" class="btn btn-secondary">Send Your CV</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Culture -->
+        <section class="section-sm">
+            <div class="container">
+                <div class="section-header reveal" style="text-align:center; margin-bottom:40px;">
+                    <div class="section-tag" style="justify-content:center;"><span
+                            class="section-tag-dot"></span>Culture & Environment</div>
+                    <h2 class="section-title">Why <span>Nexora</span></h2>
+                </div>
+                <div class="culture-grid">
+                    <div class="culture-card card-glass card-glass--hover reveal">
+                        <div class="culture-icon">🚀</div>
+                        <div class="culture-title">Mission-Driven Work</div>
+                        <div class="culture-desc">Every experiment, every dataset, every late night serves one purpose:
+                            eliminating suffering. Your work will directly influence clinical outcomes.</div>
+                    </div>
+                    <div class="culture-card card-glass card-glass--hover reveal reveal-delay-1">
+                        <div class="culture-icon">🏆</div>
+                        <div class="culture-title">World-Class Team</div>
+                        <div class="culture-desc">Work alongside Nobel Prize nominees, MIT PhD researchers, and Silicon
+                            Valley AI engineers. Cross-pollination of disciplines creates breakthrough science.</div>
+                    </div>
+                    <div class="culture-card card-glass card-glass--hover reveal reveal-delay-2">
+                        <div class="culture-icon">🌐</div>
+                        <div class="culture-title">Global Lab Access</div>
+                        <div class="culture-desc">Rotate through labs in San Francisco, Zurich, Tokyo, and Singapore.
+                            Experience cutting-edge equipment and diverse scientific cultures worldwide.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Jobs Section -->
+        <section class="section" id="jobs">
+            <div class="container">
+                <div class="section-header reveal" style="margin-bottom:48px;">
+                    <div class="section-tag"><span class="section-tag-dot"></span>Open Positions</div>
+                    <h2 class="section-title"><span>12</span> Roles Available</h2>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card card-glass card-glass--hover reveal">
+                        <div class="job-info">
+                            <div class="job-dept">Bioinformatics</div>
+                            <div class="job-title">Senior Bioinformatics Engineer</div>
+                            <div class="job-tags">
+                                <span class="badge badge-green">5+ Years</span>
+                                <span class="badge badge-cyan">San Francisco / Remote</span>
+                                <span class="badge badge-purple">Senior</span>
+                            </div>
+                            <div class="job-desc">Design, implement, and optimize bioinformatics pipelines for
+                                processing whole-genome sequencing, RNA-seq, and single-cell datasets at scale. Deep
+                                experience with Python, R, Nextflow, and cloud HPC environments required.</div>
+                        </div>
+                        <div class="job-actions">
+                            <div class="job-meta">
+                                <div class="job-meta-item">$140k – $200k USD</div>
+                                <div class="job-meta-item">Posted 3 days ago</div>
+                            </div>
+                            <a href="contact.html" class="btn btn-primary">Apply Now →</a>
+                        </div>
+                    </div>
+
+                    <div class="job-card card-glass card-glass--hover reveal">
+                        <div class="job-info">
+                            <div class="job-dept">Clinical Research</div>
+                            <div class="job-title">Clinical Research Analyst — Phase III</div>
+                            <div class="job-tags">
+                                <span class="badge badge-cyan">3+ Years</span>
+                                <span class="badge badge-green">New York / EU</span>
+                                <span class="badge badge-yellow">Mid-Level</span>
+                            </div>
+                            <div class="job-desc">Support execution of multi-site Phase III oncology trials.
+                                Responsibilities include site monitoring, protocol deviation management, data integrity
+                                review, and regulatory submission support under ICH-GCP guidelines.</div>
+                        </div>
+                        <div class="job-actions">
+                            <div class="job-meta">
+                                <div class="job-meta-item">$90k – $130k USD</div>
+                                <div class="job-meta-item">Posted 1 week ago</div>
+                            </div>
+                            <a href="contact.html" class="btn btn-primary">Apply Now →</a>
+                        </div>
+                    </div>
+
+                    <div class="job-card card-glass card-glass--hover reveal">
+                        <div class="job-info">
+                            <div class="job-dept">Molecular Engineering</div>
+                            <div class="job-title">Molecular Systems Designer</div>
+                            <div class="job-tags">
+                                <span class="badge badge-green">4+ Years</span>
+                                <span class="badge badge-cyan">Zurich / Tokyo</span>
+                                <span class="badge badge-purple">Senior</span>
+                            </div>
+                            <div class="job-desc">Design CRISPR-X delivery systems and molecular engineering frameworks
+                                for rare genetic disease programs. Proficiency in AAV engineering, lipid nanoparticle
+                                formulation, and synthetic biology toolkits essential.</div>
+                        </div>
+                        <div class="job-actions">
+                            <div class="job-meta">
+                                <div class="job-meta-item">CHF 130k – 180k</div>
+                                <div class="job-meta-item">Posted 5 days ago</div>
+                            </div>
+                            <a href="contact.html" class="btn btn-primary">Apply Now →</a>
+                        </div>
+                    </div>
+
+                    <div class="job-card card-glass card-glass--hover reveal">
+                        <div class="job-info">
+                            <div class="job-dept">Artificial Intelligence</div>
+                            <div class="job-title">ML Research Scientist — Drug Discovery</div>
+                            <div class="job-tags">
+                                <span class="badge badge-cyan">PhD Required</span>
+                                <span class="badge badge-green">San Francisco</span>
+                                <span class="badge badge-purple">Senior</span>
+                            </div>
+                            <div class="job-desc">Develop novel deep learning architectures for protein structure
+                                prediction, molecular generation, and ADMET property modeling. Publish research
+                                externally. Experience with diffusion models, GNNs, and equivariant networks expected.
+                            </div>
+                        </div>
+                        <div class="job-actions">
+                            <div class="job-meta">
+                                <div class="job-meta-item">$180k – $260k USD</div>
+                                <div class="job-meta-item">Posted 2 days ago</div>
+                            </div>
+                            <a href="contact.html" class="btn btn-primary">Apply Now →</a>
+                        </div>
+                    </div>
+
+                    <div class="job-card card-glass card-glass--hover reveal">
+                        <div class="job-info">
+                            <div class="job-dept">NeuroBio</div>
+                            <div class="job-title">Neuroscience Research Lead</div>
+                            <div class="job-tags">
+                                <span class="badge badge-green">PhD + 3yr</span>
+                                <span class="badge badge-cyan">Tokyo / Singapore</span>
+                                <span class="badge badge-yellow">Lead</span>
+                            </div>
+                            <div class="job-desc">Lead the NeuroBio program targeting Parkinson's and ALS. Oversee in
+                                vivo models, patient-derived iPSC platforms, and IND enabling studies. Collaborate
+                                directly with Dr. Kenji Sato's division.</div>
+                        </div>
+                        <div class="job-actions">
+                            <div class="job-meta">
+                                <div class="job-meta-item">¥18M – ¥25M JPY</div>
+                                <div class="job-meta-item">Posted 1 week ago</div>
+                            </div>
+                            <a href="contact.html" class="btn btn-primary">Apply Now →</a>
+                        </div>
+                    </div>
+
+                    <div class="job-card card-glass card-glass--hover reveal">
+                        <div class="job-info">
+                            <div class="job-dept">Regulatory Affairs</div>
+                            <div class="job-title">Director of Global Regulatory Strategy</div>
+                            <div class="job-tags">
+                                <span class="badge badge-cyan">8+ Years</span>
+                                <span class="badge badge-green">Zurich / London</span>
+                                <span class="badge badge-purple">Director</span>
+                            </div>
+                            <div class="job-desc">Spearhead global regulatory strategies for our AI-designed
+                                therapeutics. Requires deep expertise navigating FDA, EMA, and PMDA pathways for novel
+                                biologics and gene therapies. Cross-functional leadership required.</div>
+                        </div>
+                        <div class="job-actions">
+                            <div class="job-meta">
+                                <div class="job-meta-item">CHF 220k – 280k</div>
+                                <div class="job-meta-item">Posted 2 days ago</div>
+                            </div>
+                            <a href="contact.html" class="btn btn-primary">Apply Now →</a>
+                        </div>
+                    </div>
+
+                    <div class="job-card card-glass card-glass--hover reveal">
+                        <div class="job-info">
+                            <div class="job-dept">Hardware Engineering</div>
+                            <div class="job-title">Robotics Automation Engineer</div>
+                            <div class="job-tags">
+                                <span class="badge badge-green">3+ Years</span>
+                                <span class="badge badge-yellow">Singapore</span>
+                                <span class="badge badge-cyan">Mid-Level</span>
+                            </div>
+                            <div class="job-desc">Design and program automation workflows for our high-throughput liquid
+                                handling robots and automated synthesis hubs. Work directly with chemistry leads to
+                                digitize and scale complex molecular production.</div>
+                        </div>
+                        <div class="job-actions">
+                            <div class="job-meta">
+                                <div class="job-meta-item">$110k – $150k SGD</div>
+                                <div class="job-meta-item">Posted 4 days ago</div>
+                            </div>
+                            <a href="contact.html" class="btn btn-primary">Apply Now →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits -->
+        <section class="section"
+            style="background: linear-gradient(180deg, transparent, rgba(57,255,20,0.02), transparent);">
+            <div class="container">
+                <div class="section-header reveal" style="text-align:center; margin-bottom:48px;">
+                    <div class="section-tag" style="justify-content:center;"><span
+                            class="section-tag-dot"></span>Benefits</div>
+                    <h2 class="section-title">Built for <span>Brilliance</span></h2>
+                </div>
+                <div class="benefits-grid">
+                    <div class="benefit-card card-glass card-glass--hover reveal">
+                        <div class="benefit-icon">💰</div>
+                        <div class="benefit-title">Competitive Compensation</div>
+                        <div class="benefit-desc">Top-quartile salaries + equity participation in Nexora's growth</div>
+                    </div>
+                    <div class="benefit-card card-glass card-glass--hover reveal reveal-delay-1">
+                        <div class="benefit-icon">🧠</div>
+                        <div class="benefit-title">Learning Budget</div>
+                        <div class="benefit-desc">$5,000/year for conferences, courses, and published research</div>
+                    </div>
+                    <div class="benefit-card card-glass card-glass--hover reveal reveal-delay-2">
+                        <div class="benefit-icon">🌍</div>
+                        <div class="benefit-title">Global Mobility</div>
+                        <div class="benefit-desc">Annual lab rotation opportunities across all 24 global facilities
+                        </div>
+                    </div>
+                    <div class="benefit-card card-glass card-glass--hover reveal reveal-delay-3">
+                        <div class="benefit-icon">🏖️</div>
+                        <div class="benefit-title">Unlimited PTO</div>
+                        <div class="benefit-desc">Flexible work schedules with unlimited paid time off policy</div>
+                    </div>
+                    <div class="benefit-card card-glass card-glass--hover reveal">
+                        <div class="benefit-icon">🏥</div>
+                        <div class="benefit-title">Full Healthcare</div>
+                        <div class="benefit-desc">Comprehensive medical, dental, vision, and mental health coverage
+                        </div>
+                    </div>
+                    <div class="benefit-card card-glass card-glass--hover reveal reveal-delay-1">
+                        <div class="benefit-icon">👶</div>
+                        <div class="benefit-title">Family Support</div>
+                        <div class="benefit-desc">24-week parental leave + fertility support + childcare subsidies</div>
+                    </div>
+                    <div class="benefit-card card-glass card-glass--hover reveal reveal-delay-2">
+                        <div class="benefit-icon">🔬</div>
+                        <div class="benefit-title">Research Freedom</div>
+                        <div class="benefit-desc">20% lab time for self-directed research projects and publications
+                        </div>
+                    </div>
+                    <div class="benefit-card card-glass card-glass--hover reveal reveal-delay-3">
+                        <div class="benefit-icon">📈</div>
+                        <div class="benefit-title">Equity Program</div>
+                        <div class="benefit-desc">Stock options with 4-year vesting and 1-year cliff for all roles</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">🧬</div><span>Nexora Bio Systems</span>
+                    </div>
+                    <p class="footer-desc">Engineering the future of human health.</p>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="research.html">Research</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Science</h4>
+                    <ul class="footer-links">
+                        <li><a href="publications.html">Publications</a></li>
+                        <li><a href="pipeline.html">Pipeline</a></li>
+                        <li><a href="technology.html">Technology</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copy">© 2026 Nexora Bio Systems. All rights reserved.</p>
+                <div class="footer-status">
+                    <div class="footer-status-dot"></div>ALL SYSTEMS OPERATIONAL
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="core.js"></script>
+</body>
+
+</html>
